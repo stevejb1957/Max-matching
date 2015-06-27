@@ -104,9 +104,9 @@ function drawEdges()
       drawEdges();
 }
 
-for (i = 0;i<25;i++){
-    a=a+b;
-    probSolve();
+//for (i = 0;i<lines.length;i++){
+    //a=a+b;
+    //probSolve();
 
 
 
@@ -135,6 +135,12 @@ function probSolve()
  
 }
 
+//}
+
+function inputLine(){
+var l;
+l = document.getElementById("line");
+a = l.elements["selection"].value;
+a= a-1;
+probSolve();
 }
-
-
