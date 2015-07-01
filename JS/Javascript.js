@@ -1,25 +1,22 @@
 var ctx;
 var canvas;
-var points = [400,300,700,300, 400,300,700,400, 400,300,700,500, 400,300,700,600, 400,300,700,700, 400,400,700,300, 400,400,700,400, 400,400,700,500, 400,400,700,600, 400,400,700,700, 400,500,700,300, 400,500,700,400, 400,500,700,500, 400,500,700,600, 400,500,700,700, 400,600,700,300, 400,600,700,400, 400,600,700,500, 400,600,700,600, 400,600,700,700, 400,700,700,300, 400,700,700,400, 400,700,700,500, 400,700,700,600, 400,700,700,700];
+var points = [400,300,700,300, 400,300,700,400, 400,300,700,500, 400,300,700,600, 400,300,700,700, 400,400,700,300, 400,400,700,400, 400,400,700,500, 400,400,700,600, 400,400,700,700, 400,500,700,300, 400,500,700,400, 400,500,700,500, 400,500,700,600, 400,500,700,700, 400,600,700,300, 400,600,700,400, 400,600,700,500, 400,600,700,600, 400,600,700,700, 400,700,700,300, 400,700,700,400, 400,700,700,500, 400,700,700,600, 400,700,700,700]; // Plot coordinates
 var x;
 var y;
+var s = 1
 var store = [];
 var a = -1;
-var b = 2;
 var col_1x = -4;
 var col_1y = -3;
 var col_2x = -2;
 var col_2y = -1;
-var rows;
-var input;
-rows = 800
 
-var lines = [
+var lines = [ // Multidimensional array, matches line numbers to plot coordinates
     [1,0,1,2,3],
     [2,4,5,6,7],
     [3,8,9,10,11],
     [4,12,13,14,15],
-    [5,16,17,18,19],
+    [4,16,17,18,19],
     [6,20,21,22,23],
     [7,24,25,26,27],
     [8,28,29,30,31],
@@ -44,15 +41,15 @@ var lines = [
 
 window.onload = title;
 
-function title()
-{
-    var ctx = document.getElementById('my_canvas').getContext('2d'); 
+function title(){ 
+    
+var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.fillStyle = "rgba(79, 33, 235, 0.72)";
     ctx.shadowColor = "#000";
     ctx.lineWidth ="1";
     ctx.strokeStyle = "black";
-    ctx.shadowOffsetX = 4;
-    ctx.shadowOffsetY = 2;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
     ctx.shadowBlur = 3;
     ctx.font = "bold 80px Ariel";
     ctx.fillText("Bipartite Graphs",280,100);
@@ -63,8 +60,8 @@ function title()
 
 
 
-function vertex(x,y)
-{
+function vertex(x,y){ // Draws vertices
+    
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.arc(x,y,10,0,2 * Math.PI,false);
@@ -75,15 +72,26 @@ function vertex(x,y)
    for(x=400;x<800;x=x+300)
     
 {
-   for(y=300;y<rows;y=y+100)
+   for(y=300;y<800;y=y+100)
 {
     vertex(x,y);
 }
     
 }
 
-function drawEdges()
-{
+
+for(i = 0;i < 25;i++)
+ 
+{     col_1x = col_1x + 4;
+      col_1y = col_1y + 4;
+      col_2x = col_2x + 4;
+      col_2y = col_2y + 4;
+      drawEdges();
+}
+
+
+function drawEdges(){ // Draws background edges
+    
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.lineWidth="3";
@@ -95,24 +103,20 @@ function drawEdges()
   
 }
 
+function inputLine(){ // Takes input problem and stores in array then passes to function to draw
     
-    for(i = 0;i < 25;i++)
- 
-{     col_1x = col_1x + 4;
-      col_1y = col_1y + 4;
-      col_2x = col_2x + 4;
-      col_2y = col_2y + 4;
-      drawEdges();
+var l;
+l = document.getElementById("line");
+a = l.elements["selection"].value;
+a = a-1;
+store.push(a + 1);
+probSolve();
+    
 }
-
-//for (i = 0;i<lines.length;i++){
-    //a=a+b;
-    //probSolve();
-
-
-
-function probSolve()
-{
+    
+    
+function probSolve(){ // Plots input problem
+    
       var col_1x = (lines[a][1]);
       var col_1y = (lines[a][2]);
       var col_2x = (lines[a][3]);
@@ -121,8 +125,8 @@ function probSolve()
     
 
 
-  function plot()
-{
+  function plot(){ // Draws input problem
+      
    var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.lineWidth="4";
@@ -136,13 +140,42 @@ function probSolve()
  
 }
 
-//}
 
-function inputLine(){
-var l;
-l = document.getElementById("line");
-a = l.elements["selection"].value;
-a= a-1;
-store.push(a);
-probSolve();
+
+// Step 1 initial guess
+
+function initialMatch(){ 
+
+        s == s--
+        alert(store);
+        a = store[s]
+        probMatch();
+
 }
+
+
+function probMatch(){ // Plots initial guess
+    
+      var col_1x = (lines[a][1]);
+      var col_1y = (lines[a][2]);
+      var col_2x = (lines[a][3]);
+      var col_2y = (lines[a][4]);
+      plot(); 
+    
+
+
+  function plot(){ // Draws initial guess
+      
+   var ctx = document.getElementById('my_canvas').getContext('2d'); 
+    ctx.beginPath();
+    ctx.lineWidth="5";
+    ctx.strokeStyle = "#000";
+    ctx.moveTo(points[col_1x],points[col_1y]);
+    ctx.lineTo(points[col_2x],points[col_2y]);
+    ctx.stroke();
+    ctx.closePath();
+    
+}
+ 
+}
+
