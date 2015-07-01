@@ -10,6 +10,7 @@ var col_1x = -4;
 var col_1y = -3;
 var col_2x = -2;
 var col_2y = -1;
+var range = [];
 
 var lines = [ // Multidimensional array, matches line numbers to plot coordinates
     [1,0,1,2,3],
@@ -174,8 +175,21 @@ function probMatch(){ // Plots initial guess
     ctx.lineTo(points[col_2x],points[col_2y]);
     ctx.stroke();
     ctx.closePath();
+    Guess();
     
 }
  
 }
 
+function Guess(){
+
+for (i = 5;i <26;i=i+5){
+    
+    function devide(value) {
+        return value > i-5 && value <= i
+}
+    var range = store.filter(devide);
+    alert(range);
+}
+
+}
