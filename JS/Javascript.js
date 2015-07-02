@@ -3,9 +3,9 @@ var canvas;
 var points = [400,300,700,300, 400,300,700,400, 400,300,700,500, 400,300,700,600, 400,300,700,700, 400,400,700,300, 400,400,700,400, 400,400,700,500, 400,400,700,600, 400,400,700,700, 400,500,700,300, 400,500,700,400, 400,500,700,500, 400,500,700,600, 400,500,700,700, 400,600,700,300, 400,600,700,400, 400,600,700,500, 400,600,700,600, 400,600,700,700, 400,700,700,300, 400,700,700,400, 400,700,700,500, 400,700,700,600, 400,700,700,700]; // Plot coordinates
 var x;
 var y;
-var s = 1
 var store = [];
 var a = -1;
+var s;
 var col_1x = -4;
 var col_1y = -3;
 var col_2x = -2;
@@ -147,27 +147,24 @@ function probSolve(){ // Plots input problem
 
 function initialMatch(){ 
 
-        s == s--
-        alert(store);
-        a = store[s]
-        probMatch();
-
+    //alert(store);
+        
+    for (i = 5;i <= 25;i=i+5){
+   
+function devide(value) {
+    return value > i-5 && value <= i
 }
-
-
-function probMatch(){ // Plots initial guess
-    
-      var col_1x = (lines[a][1]);
-      var col_1y = (lines[a][2]);
-      var col_2x = (lines[a][3]);
-      var col_2y = (lines[a][4]);
-      plot(); 
-    
-
-
-  function plot(){ // Draws initial guess
-      
-   var ctx = document.getElementById('my_canvas').getContext('2d'); 
+    var range = store.filter(devide);
+    //alert(range);
+    //alert(range[0]);
+    var s = (range[0])-1;
+        
+     var col_1x = (lines[s][1]);
+    var col_1y = (lines[s][2]);
+    var col_2x = (lines[s][3]);
+    var col_2y = (lines[s][4]);
+        
+    var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.lineWidth="5";
     ctx.strokeStyle = "#000";
@@ -175,21 +172,6 @@ function probMatch(){ // Plots initial guess
     ctx.lineTo(points[col_2x],points[col_2y]);
     ctx.stroke();
     ctx.closePath();
-    Guess();
-    
+      
 }
- 
-}
-
-function Guess(){
-
-for (i = 5;i <26;i=i+5){
-    
-    function devide(value) {
-        return value > i-5 && value <= i
-}
-    var range = store.filter(devide);
-    alert(range);
-}
-
 }
