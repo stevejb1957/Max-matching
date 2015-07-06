@@ -147,7 +147,6 @@ function probSolve(){ // Plots input problem
 
 function initialMatch(){ 
 
-    //alert(store);
         
     for (i = 5;i <= 25;i=i+5){
    
@@ -155,14 +154,17 @@ function devide(value) {
     return value > i-5 && value <= i
 }
     var range = store.filter(devide);
-    //alert(range);
-    //alert(range[0]);
     var s = (range[0])-1;
+    a = s
+    if (a != a) { 
+        alert("Problem data missing,a solution cannot be found.Please try again and enter data for each vertex");
+        window.location.reload()
         
-     var col_1x = (lines[s][1]);
-    var col_1y = (lines[s][2]);
-    var col_2x = (lines[s][3]);
-    var col_2y = (lines[s][4]);
+    }else{
+    var col_1x = (lines[a][1]);
+    var col_1y = (lines[a][2]);
+    var col_2x = (lines[a][3]);
+    var col_2y = (lines[a][4]);
         
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
@@ -172,6 +174,7 @@ function devide(value) {
     ctx.lineTo(points[col_2x],points[col_2y]);
     ctx.stroke();
     ctx.closePath();
-      
 }
 }
+}
+
