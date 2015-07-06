@@ -53,8 +53,8 @@ var ctx = document.getElementById('my_canvas').getContext('2d');
     ctx.shadowOffsetY = 0;
     ctx.shadowBlur = 3;
     ctx.font = "bold 80px Ariel";
-    ctx.fillText("Bipartite Graphs",280,100);
-    ctx.strokeText("Bipartite Graphs",280,100);   
+    ctx.fillText("Max Matching",380,100);
+    ctx.strokeText("Max Matching",380,100);   
     
 }
 
