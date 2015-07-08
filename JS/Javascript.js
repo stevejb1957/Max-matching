@@ -11,13 +11,14 @@ var col_1y = -3;
 var col_2x = -2;
 var col_2y = -1;
 var range = [];
+var conflict = [0];
 
 var lines = [ // Multidimensional array, matches line numbers to plot coordinates
     [1,0,1,2,3],
     [2,4,5,6,7],
     [3,8,9,10,11],
     [4,12,13,14,15],
-    [4,16,17,18,19],
+    [5,16,17,18,19],
     [6,20,21,22,23],
     [7,24,25,26,27],
     [8,28,29,30,31],
@@ -150,31 +151,50 @@ function initialMatch(){
         
     for (i = 5;i <= 25;i=i+5){
    
-function devide(value) {
-    return value > i-5 && value <= i
+        function devide(value) {
+        return value > i-5 && value <= i
+        }
+                    var range = store.filter(devide);
+                    var s = (range[0])-1;
+                    a = s
+                    
+                       if (a != a) { 
+                       alert("Problem data missing,a solution cannot be found.Please try again and enter data for each vertex");
+                       window.location.reload()
+                       break
+                       }else{
+                       var c = (points[lines[s][4]]);
+                       };
+       
+                        for ( j = 0;j <= conflict.length;j++){
+                            
+                        if (c == conflict[j]){
+                        alert("CONFLICT")
+                        }else{
+                        continue
+                        }
+                        }
+                           
+                    conflict.push(points[lines[s][4]]);
+                           
+                    var col_1x = (lines[a][1]);
+                    var col_1y = (lines[a][2]);
+                    var col_2x = (lines[a][3]);
+                    var col_2y = (lines[a][4]);
+
+                    var ctx = document.getElementById('my_canvas').getContext('2d'); 
+                    ctx.beginPath();
+                    ctx.lineWidth="5";
+                    ctx.strokeStyle = "#000";
+                    ctx.moveTo(points[col_1x],points[col_1y]);
+                    ctx.lineTo(points[col_2x],points[col_2y]);
+                    ctx.stroke();
+                    ctx.closePath();
+                
 }
-    var range = store.filter(devide);
-    var s = (range[0])-1;
-    a = s
-    if (a != a) { 
-        alert("Problem data missing,a solution cannot be found.Please try again and enter data for each vertex");
-        window.location.reload()
         
-    }else{
-    var col_1x = (lines[a][1]);
-    var col_1y = (lines[a][2]);
-    var col_2x = (lines[a][3]);
-    var col_2y = (lines[a][4]);
-        
-    var ctx = document.getElementById('my_canvas').getContext('2d'); 
-    ctx.beginPath();
-    ctx.lineWidth="5";
-    ctx.strokeStyle = "#000";
-    ctx.moveTo(points[col_1x],points[col_1y]);
-    ctx.lineTo(points[col_2x],points[col_2y]);
-    ctx.stroke();
-    ctx.closePath();
 }
-}
-}
+    
+
+
 
