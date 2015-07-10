@@ -6,12 +6,14 @@ var y;
 var store = [];
 var a = -1;
 var s;
+var c;
 var col_1x = -4;
 var col_1y = -3;
 var col_2x = -2;
 var col_2y = -1;
 var range = [];
 var conflict = [0];
+var sStore = [];
 
 var lines = [ // Multidimensional array, matches line numbers to plot coordinates
     [1,0,1,2,3],
@@ -111,8 +113,8 @@ var l;
 l = document.getElementById("line");
 a = l.elements["selection"].value;
 a = a-1;
-store.push(a + 1);
-probSolve();
+store.push(a + 1); // pushes edge selection into an array called store
+probSolve(); // the edge is then sent to probSolve for drawing
     
 }
     
@@ -148,39 +150,53 @@ function probSolve(){ // Plots input problem
 
 function initialMatch(){ 
 
+// store holds the array of all selected problem edges 
         
-    for (i = 5;i <= 25;i=i+5){
+for (k = 5;k <= 25;k=k+5){ // Loop start
    
-        function devide(value) {
-        return value > i-5 && value <= i
+        function devide(value) { // value = stored problem edges
+        return value > k-5 && value <= k // function for deviding up store into sets of 5
         }
-                    var range = store.filter(devide);
-                    var s = (range[0])-1;
-                    a = s
+                    var range = store.filter(devide); // each set of 5 stored in array called range on each loop  
+                    s = (range[0])-1; // 1st value from each set stored as s
+            
                     
-                       if (a != a) { 
+                       if (s != s) { // checking to see if no problem input for a vertex
                        alert("Problem data missing,a solution cannot be found.Please try again and enter data for each vertex");
-                       window.location.reload()
+                       window.location.reload() // clears page to start again
                        break
                        }else{
-                       var c = (points[lines[s][4]]);
+                       c = (points[lines[s][4]]); // stores y cordinate on Y column of s edge in variable c
                        };
-       
-                        for ( j = 0;j <= conflict.length;j++){
+                       alert("s is " + sStore);
+                       alert(conflict); // alerts array conflict
+                        
+                        for ( j = 0;j < conflict.length;j++){ // checks conflict on Y column.Loops over lenghth of conflict array checking against c
                             
-                        if (c == conflict[j]){
-                        alert("CONFLICT")
-                        }else{
-                        continue
-                        }
-                        }
+                                if (c == conflict[j]){ // if conflict passes into if statement
+                                alert("CONFLICT")
+                                alert(range.length);
+                                    if(range.length == 1){ 
+                                    alert("skip");
+                                    s = sStore.slice(-1)[0];
+                                    }else{
+                                s = range[0]; // sets s to 2nd line in range array to overcome conflict
+                                }
+                                continue;
+                                }
+                                }
+                                
+                                
+                                
+                    conflict.push(points[lines[s][4]]); // array of drawn edges stored to enable conflict checking
+                    sStore.push(s);
+                         
+                    
                            
-                    conflict.push(points[lines[s][4]]);
-                           
-                    var col_1x = (lines[a][1]);
-                    var col_1y = (lines[a][2]);
-                    var col_2x = (lines[a][3]);
-                    var col_2y = (lines[a][4]);
+                    var col_1x = (lines[s][1]); // edges plotted and drawn
+                    var col_1y = (lines[s][2]);
+                    var col_2x = (lines[s][3]);
+                    var col_2y = (lines[s][4]);
 
                     var ctx = document.getElementById('my_canvas').getContext('2d'); 
                     ctx.beginPath();
@@ -190,11 +206,13 @@ function initialMatch(){
                     ctx.lineTo(points[col_2x],points[col_2y]);
                     ctx.stroke();
                     ctx.closePath();
-                
-}
-        
-}
+
+   
+} // Loop end
     
+} // initialMatch end
+   
 
 
+    
 
