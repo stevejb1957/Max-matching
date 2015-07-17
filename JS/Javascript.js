@@ -7,6 +7,7 @@ var store = [];
 var a = -1;
 var s;
 var c;
+var j;
 var col_1x = -4;
 var col_1y = -3;
 var col_2x = -2;
@@ -152,7 +153,7 @@ function initialMatch(){
 
 // store holds the array of all selected problem edges 
         
-for (k = 5;k <= 25;k=k+5){ // Loop start
+     for (k = 5;k <= 25;k=k+5){ // Loop start
    
         function devide(value) { // value = stored problem edges
         return value > k-5 && value <= k // function for deviding up store into sets of 5
@@ -166,32 +167,59 @@ for (k = 5;k <= 25;k=k+5){ // Loop start
                        window.location.reload() // clears page to start again
                        break
                        }else{
-                       c = (points[lines[s][4]]); // stores y cordinate on Y column of s edge in variable c
-                       };
-                       alert("s is " + sStore);
-                       alert(conflict); // alerts array conflict
+                           c = (points[lines[s][4]]); // stores y cordinate on Y column of s edge in variable c
+                           };
+         
+                             
                         
                         for ( j = 0;j < conflict.length;j++){ // checks conflict on Y column.Loops over lenghth of conflict array checking against c
                             
                                 if (c == conflict[j]){ // if conflict passes into if statement
-                                alert("CONFLICT")
-                                alert(range.length);
+                                    
+                                                                    
                                     if(range.length == 1){ 
-                                    alert("skip");
                                     s = sStore.slice(-1)[0];
-                                    }else{
-                                s = range[0]; // sets s to 2nd line in range array to overcome conflict
-                                }
+                                    }else
+                                        
+                                                      if (range.length == 2){
+                                                      s = (range[1])-1;    // sets s to 2nd line in range array to overcome conflict
+                                                      c = (points[lines[s][4]]);
+                                                      range.length = 1
+                                                      j = 0; 
+                                                 }else
+                                                     
+                                                     if (range.length == 3){
+                                                      s = (range[1])-1;    // sets s to 2nd line in range array to overcome conflict
+                                                      c = (points[lines[s][4]]);
+                                                      range.shift();
+                                                      j = 0; 
+                                        
+                                                 }else
+                                                     
+                                                     if (range.length == 4){
+                                                      s = (range[1])-1;     // sets s to 2nd line in range array to overcome conflict
+                                                      c = (points[lines[s][4]]);
+                                                      range.shift();
+                                                      j = 0; 
+                                                 
+                                                 }else
+                                                     
+                                                     if (range.length == 5){
+                                                      s = (range[1])-1;  // sets s to 2nd line in range array to overcome conflict
+                                                      c = (points[lines[s][4]]);
+                                                      range.shift();
+                                                      j = 0; 
+                                         }
                                 continue;
-                                }
-                                }
+                              }
+                      }
                                 
                                 
                                 
                     conflict.push(points[lines[s][4]]); // array of drawn edges stored to enable conflict checking
                     sStore.push(s);
-                         
-                    
+                     j = 0;   
+                                      
                            
                     var col_1x = (lines[s][1]); // edges plotted and drawn
                     var col_1y = (lines[s][2]);
@@ -208,9 +236,32 @@ for (k = 5;k <= 25;k=k+5){ // Loop start
                     ctx.closePath();
 
    
-} // Loop end
+    } // Loop end
     
 } // initialMatch end
+
+function MaxMatch(){ // completes the process and finds the maximum matching
+  
+
+function eliminateDuplicates(arr) {
+  var i,
+      len=arr.length,
+      out=[],
+      obj={};
+
+  for (i=0;i<len;i++) {
+    obj[arr[i]]=0;
+  }
+  for (i in obj) {
+    out.push(i);
+  }
+  
+}
+
+eliminateDuplicates(sStore);
+
+
+}
    
 
 
