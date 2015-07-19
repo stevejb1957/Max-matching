@@ -63,13 +63,39 @@ var ctx = document.getElementById('my_canvas').getContext('2d');
 }
 
 
+function vertexId(I,vx,vy){
+    
+var ctx = document.getElementById('my_canvas').getContext('2d'); 
+    ctx.fillStyle = "#f00f17";
+    ctx.shadowColor = "#000000";
+    ctx.lineWidth ="1";
+    ctx.strokeStyle = "red";
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowBlur = 3;
+    ctx.font = "30px Ariel";
+    ctx.fillText(I,vx,vy);
+    ctx.strokeText(I,vx,vy);   
 
+
+}
+    vertexId("a",360,300); // ID vertices
+    vertexId("A",730,300);
+    vertexId("b",360,400);
+    vertexId("B",730,400);
+    vertexId("c",360,500);
+    vertexId("C",730,500);
+    vertexId("d",360,600);
+    vertexId("D",730,600);
+    vertexId("e",360,700);
+    vertexId("E",730,700);
 
 function vertex(x,y){ // Draws vertices
     
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.arc(x,y,10,0,2 * Math.PI,false);
+    ctx.fillStyle = "#000";
     ctx.fill();
     ctx.closePath();
 }
