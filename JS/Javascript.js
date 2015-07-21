@@ -8,6 +8,8 @@ var a = -1;
 var s;
 var c;
 var j;
+var out = [];
+var vertexX = [];
 var col_1x = -4;
 var col_1y = -3;
 var col_2x = -2;
@@ -15,6 +17,8 @@ var col_2y = -1;
 var range = [];
 var conflict = [0];
 var sStore = [];
+
+
 
 var lines = [ // Multidimensional array, matches line numbers to plot coordinates
     [1,0,1,2,3],
@@ -90,12 +94,12 @@ var ctx = document.getElementById('my_canvas').getContext('2d');
     vertexId("e",360,700);
     vertexId("E",730,700);
 
-function vertex(x,y){ // Draws vertices
+function vertex(x,y,colour){ // Draws vertices
     
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.arc(x,y,10,0,2 * Math.PI,false);
-    ctx.fillStyle = "#000";
+    ctx.fillStyle = colour;
     ctx.fill();
     ctx.closePath();
 }
@@ -105,7 +109,7 @@ function vertex(x,y){ // Draws vertices
 {
    for(y=300;y<800;y=y+100)
 {
-    vertex(x,y);
+    vertex(x,y,"#000");
 }
     
 }
@@ -245,6 +249,8 @@ function initialMatch(){
                     conflict.push(points[lines[s][4]]); // array of drawn edges stored to enable conflict checking
                     sStore.push(s);
                      j = 0;   
+                     
+                     vertexX.push(points[lines[s][2]]);
                                       
                            
                     var col_1x = (lines[s][1]); // edges plotted and drawn
@@ -264,32 +270,63 @@ function initialMatch(){
    
     } // Loop end
     
+
+    
 } // initialMatch end
 
 function MaxMatch(){ // completes the process and finds the maximum matching
-  
-
-function eliminateDuplicates(arr) {
-  var i,
-      len=arr.length,
-      out=[],
-      obj={};
-
-  for (i=0;i<len;i++) {
-    obj[arr[i]]=0;
-  }
-  for (i in obj) {
-    out.push(i);
-  }
-  
-}
-
-eliminateDuplicates(sStore);
-
-
-}
-   
-
-
     
+alert(vertexX); 
+    
+
+function eliminateDuplicates() {
+  var t,
+      len=vertexX.length,
+      
+      obj={};
+ 
+  for (t=0;t<len;t++) {
+    obj[vertexX[t]]=0;
+  }
+  for (t in obj) {
+    out.push(t);
+  }
+  
+  
+}
+  eliminateDuplicates();
+   
+    
+alert(out)
+
+
+
+var current = [300,400,500,600,700],
+    prev = [];
+    for(d=0;d<out.length;d++){
+    prev[d]=out[d];
+    }
+    isMatch = false,
+    missing = null;
+
+var d = 0, y = 0,
+    lenC = current.length,
+    lenP = prev.length;
+
+for ( ; d < lenC; d++ ) {
+    isMatch = false;
+    for ( y = 0; y < lenP; y++ ) {
+        if (current[d] == prev[y]) isMatch = true;
+    }
+    if ( !isMatch ) missing = current[d]; // Current[i] isn't in prev
+}
+
+if ( missing == null){
+alert("Max Matching achieved")
+
+}else{
+     alert(missing);
+vertex(340,missing,"#eb9f0e");
+    }
+}
 
