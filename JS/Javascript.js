@@ -8,8 +8,10 @@ var a = -1;
 var s;
 var c;
 var j;
-var out = [];
+var outx = [];
+var outY = [];
 var vertexX = [];
+var vertexY = [];
 var col_1x = -4;
 var col_1y = -3;
 var col_2x = -2;
@@ -251,6 +253,7 @@ function initialMatch(){
                      j = 0;   
                      
                      vertexX.push(points[lines[s][2]]);
+                     vertexY.push(points[lines[s][4]]);
                                       
                            
                     var col_1x = (lines[s][1]); // edges plotted and drawn
@@ -274,59 +277,117 @@ function initialMatch(){
     
 } // initialMatch end
 
+
+
+
 function MaxMatch(){ // completes the process and finds the maximum matching
     
-alert(vertexX); 
+           
+      markX();
     
+      function markX() {
 
-function eliminateDuplicates() {
-  var t,
-      len=vertexX.length,
+             function eliminateDuplicates() {
+             var t,
+             len=vertexX.length,
       
-      obj={};
+             obj={};
  
-  for (t=0;t<len;t++) {
-    obj[vertexX[t]]=0;
-  }
-  for (t in obj) {
-    out.push(t);
-  }
-  
-  
-}
+             for (t=0;t<len;t++) {
+             obj[vertexX[t]]=0;
+             }
+             for (t in obj) {
+             outx.push(t);
+             }
+             }
+            
+            
   eliminateDuplicates();
    
     
-alert(out)
-
 
 
 var current = [300,400,500,600,700],
-    prev = [];
-    for(d=0;d<out.length;d++){
-    prev[d]=out[d];
+    prevX = [];
+    for(d=0;d<outx.length;d++){
+    prevX[d]=outx[d];
     }
     isMatch = false,
-    missing = null;
+    missingX = null;
 
 var d = 0, y = 0,
     lenC = current.length,
-    lenP = prev.length;
+    lenP = prevX.length;
 
 for ( ; d < lenC; d++ ) {
     isMatch = false;
     for ( y = 0; y < lenP; y++ ) {
-        if (current[d] == prev[y]) isMatch = true;
+        if (current[d] == prevX[y]) isMatch = true;
     }
-    if ( !isMatch ) missing = current[d]; // Current[i] isn't in prev
+    if ( !isMatch ) missingX = current[d]; // Current[i] isn't in prev
 }
 
-if ( missing == null){
+if ( missingX == null){
 alert("Max Matching achieved")
 
 }else{
-     alert(missing);
-vertex(340,missing,"#eb9f0e");
+    vertex(340,missingX,"#eb9f0e");
     }
+
+    }
+    
+ markY();
+    
+  function markY(){
+      
+            function eliminateDuplicate() {
+             var t,
+            len=vertexY.length,
+      
+            obj={};
+ 
+            for (t=0;t<len;t++) {
+            obj[vertexY[t]]=0;
+             }
+            for (t in obj) {
+            outY.push(t);
+            }
+            }
+  
+
+  eliminateDuplicate();
+   
+    
+
+
+var current = [300,400,500,600,700],
+    prevY = [];
+    for(d=0;d<outY.length;d++){
+    prevY[d]=outY[d];
+    }
+    isMatch = false,
+    missingY = null;
+
+var d = 0, y = 0,
+    lenC = current.length,
+    lenP = prevY.length;
+
+for ( ; d < lenC; d++ ) {
+    isMatch = false;
+    for ( y = 0; y < lenP; y++ ) {
+        if (current[d] == prevY[y]) isMatch = true;
+    }
+    if ( !isMatch ) missingY = current[d]; // Current[i] isn't in prev
 }
+
+
+
+
+
+vertex(770,missingY,"#fc1111");
+   
+}
+  
+}  
+    
 
