@@ -1,23 +1,13 @@
-var ctx;
-var canvas;
 var points = [400,300,700,300, 400,300,700,400, 400,300,700,500, 400,300,700,600, 400,300,700,700, 400,400,700,300, 400,400,700,400, 400,400,700,500, 400,400,700,600, 400,400,700,700, 400,500,700,300, 400,500,700,400, 400,500,700,500, 400,500,700,600, 400,500,700,700, 400,600,700,300, 400,600,700,400, 400,600,700,500, 400,600,700,600, 400,600,700,700, 400,700,700,300, 400,700,700,400, 400,700,700,500, 400,700,700,600, 400,700,700,700]; // Plot coordinates
-var x;
-var y;
+
 var store = [];
 var a = -1;
-var s;
-var c;
-var j;
-var outx = [];
-var outY = [];
 var vertexX = [];
 var vertexY = [];
 var col_1x = -4;
 var col_1y = -3;
 var col_2x = -2;
 var col_2y = -1;
-var range = [];
-var conflict = [0];
 var sStore = [];
 
 
@@ -106,20 +96,20 @@ function vertex(x,y,colour){ // Draws vertices
     ctx.closePath();
 }
 
-   for(x=400;x<800;x=x+300)
-    
-{
-   for(y=300;y<800;y=y+100)
-{
+   for(x=400;x<800;x=x+300){
+       
+       
+   for(y=300;y<800;y=y+100){
+       
     vertex(x,y,"#000");
 }
     
 }
 
 
-for(i = 0;i < 25;i++)
- 
-{     col_1x = col_1x + 4;
+for(var i = 0;i < 25;i++){
+    
+      col_1x = col_1x + 4;
       col_1y = col_1y + 4;
       col_2x = col_2x + 4;
       col_2y = col_2y + 4;
@@ -184,6 +174,12 @@ function probSolve(){ // Plots input problem
 function initialMatch(){ 
 
 // store holds the array of all selected problem edges 
+    
+    var s;
+    var c;
+    var range = [];
+    var conflict = [];
+    
         
      for (k = 5;k <= 25;k=k+5){ // Loop start
    
@@ -204,7 +200,7 @@ function initialMatch(){
          
                              
                         
-                        for ( j = 0;j < conflict.length;j++){ // checks conflict on Y column.Loops over lenghth of conflict array checking against c
+                        for ( var j = 0;j < conflict.length;j++){ // checks conflict on Y column.Loops over lenghth of conflict array checking against c
                             
                                 if (c == conflict[j]){ // if conflict passes into if statement
                                     
@@ -221,7 +217,7 @@ function initialMatch(){
                                                  }else
                                                      
                                                      if (range.length == 3){
-                                                      s = (range[1])-1;    // sets s to 2nd line in range array to overcome conflict
+                                                      s = (range[1])-1;    // sets s to3rd line in range array to overcome conflict
                                                       c = (points[lines[s][4]]);
                                                       range.shift();
                                                       j = 0; 
@@ -229,7 +225,7 @@ function initialMatch(){
                                                  }else
                                                      
                                                      if (range.length == 4){
-                                                      s = (range[1])-1;     // sets s to 2nd line in range array to overcome conflict
+                                                      s = (range[1])-1;     // sets s to 4th line in range array to overcome conflict
                                                       c = (points[lines[s][4]]);
                                                       range.shift();
                                                       j = 0; 
@@ -237,7 +233,7 @@ function initialMatch(){
                                                  }else
                                                      
                                                      if (range.length == 5){
-                                                      s = (range[1])-1;  // sets s to 2nd line in range array to overcome conflict
+                                                      s = (range[1])-1;  // sets s to 5th line in range array to overcome conflict
                                                       c = (points[lines[s][4]]);
                                                       range.shift();
                                                       j = 0; 
@@ -248,8 +244,8 @@ function initialMatch(){
                                 
                                 
                                 
-                    conflict.push(points[lines[s][4]]); // array of drawn edges stored to enable conflict checking
-                    sStore.push(s);
+                    conflict.push(points[lines[s][4]]); // array of drawn edges stored in conflict array to enable conflict checking
+                    sStore.push(s); // stores selected s lines in array sStore
                      j = 0;   
                      
                      vertexX.push(points[lines[s][2]]);
@@ -286,9 +282,13 @@ function MaxMatch(){ // completes the process and finds the maximum matching
       markX();
     
       function markX() {
-
+      var outx = [];
+      var missingX = [];
+      
+      
              function eliminateDuplicates() {
              var t,
+             
              len=vertexX.length,
       
              obj={};
@@ -339,6 +339,9 @@ alert("Max Matching achieved")
  markY();
     
   function markY(){
+      
+            var outY = [];
+            var missingY = [];
       
             function eliminateDuplicate() {
              var t,
