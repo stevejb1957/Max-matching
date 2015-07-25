@@ -9,7 +9,9 @@ var col_1y = -3;
 var col_2x = -2;
 var col_2y = -1;
 var sStore = [];
-
+var storeV = [];
+var storeC = [];
+var storePos = [];
 
 
 var lines = [ // Multidimensional array, matches line numbers to plot coordinates
@@ -217,7 +219,7 @@ function initialMatch(){
                                                  }else
                                                      
                                                      if (range.length == 3){
-                                                      s = (range[1])-1;    // sets s to3rd line in range array to overcome conflict
+                                                      s = (range[1])-1;    // sets s to 3rd line in range array to overcome conflict
                                                       c = (points[lines[s][4]]);
                                                       range.shift();
                                                       j = 0; 
@@ -244,8 +246,9 @@ function initialMatch(){
                                 
                                 
                                 
-                    conflict.push(points[lines[s][4]]); // array of drawn edges stored in conflict array to enable conflict checking
-                    sStore.push(s); // stores selected s lines in array sStore
+                    conflict.push(points[lines[s][4]]); // array of y coordinates on Y column of drawn edges stored in conflict to enable conflict checking
+                    sStore.push(s); // stores drawn s lines in array sStore
+                    
                      j = 0;   
                      
                      vertexX.push(points[lines[s][2]]);
@@ -283,7 +286,7 @@ function MaxMatch(){ // completes the process and finds the maximum matching
     
       function markX() {
       var outx = [];
-      var missingX = [];
+       missingX = [];
       
       
              function eliminateDuplicates() {
@@ -334,7 +337,7 @@ alert("Max Matching achieved")
     vertex(340,missingX,"#eb9f0e");
     }
 
-    }
+    } // end markX
     
  markY();
     
@@ -343,19 +346,19 @@ alert("Max Matching achieved")
             var outY = [];
             var missingY = [];
       
-            function eliminateDuplicate() {
-             var t,
-            len=vertexY.length,
+                     function eliminateDuplicate() {
+                     var t,
+                     len=vertexY.length,
       
-            obj={};
- 
-            for (t=0;t<len;t++) {
-            obj[vertexY[t]]=0;
-             }
-            for (t in obj) {
-            outY.push(t);
-            }
-            }
+                     obj={};
+    
+                          for (t=0;t<len;t++) {
+                          obj[vertexY[t]]=0;
+                          }
+                          for (t in obj) {
+                          outY.push(t);
+                          }
+                   }
   
 
   eliminateDuplicate();
@@ -368,6 +371,7 @@ var current = [300,400,500,600,700],
     for(d=0;d<outY.length;d++){
     prevY[d]=outY[d];
     }
+      
     isMatch = false,
     missingY = null;
 
@@ -375,13 +379,13 @@ var d = 0, y = 0,
     lenC = current.length,
     lenP = prevY.length;
 
-for ( ; d < lenC; d++ ) {
+    for ( ; d < lenC; d++ ) {
     isMatch = false;
-    for ( y = 0; y < lenP; y++ ) {
-        if (current[d] == prevY[y]) isMatch = true;
-    }
+          for ( y = 0; y < lenP; y++ ) {
+          if (current[d] == prevY[y]) isMatch = true;
+          }
     if ( !isMatch ) missingY = current[d]; // Current[i] isn't in prev
-}
+   }
 
 
 
@@ -389,8 +393,73 @@ for ( ; d < lenC; d++ ) {
 
 vertex(770,missingY,"#fc1111");
    
-}
+} // end markY
   
-}  
+    for (i = 0;i < store.length; i++){   
+      storeV.push(lines[(store[i]-1)][2])  // array of y coordinate on X column ref numbers of problem lines from lines array  
+                      
+ }
+  alert(storeV); 
+    
+   for (i = 0;i < storeV.length; i++){
+        storeC.push(points[storeV[i]])
+   
+   }
+    
+   var p = storeC.indexOf(missingX);
+    
+   storePos.push(storeV[p]);
+    
+   //for( i = 0; i < lines.length;i++){
+        //for (j = 0;j < 5; j++){
+            //if ( lines[i][j]==
+           
+        
+        //}
+   
+   //}
+    
+   
+    
+    alert(storeC);
+    
+    alert(p);
+    
+    
+    
+    alert(storePos);
+    
+    maxDraw = [storePos-1,storePos,parseFloat(storePos)+1,parseFloat(storePos)+2];
+    
+    alert(maxDraw);
+    
+    probSolve();
+    
+    function probSolve(){ // Plots input problem
+    
+      var col_1x = (maxDraw[0]);
+      var col_1y = (maxDraw[1]);
+      var col_2x = (maxDraw[2]);
+      var col_2y = (maxDraw[3]);
+      plot(); 
+    
+
+
+  function plot(){ // Draws input problem
+      
+   var ctx = document.getElementById('my_canvas').getContext('2d'); 
+    ctx.beginPath();
+    ctx.lineWidth="4";
+    ctx.strokeStyle = "rgba(26, 227, 42, 0.59)";
+    ctx.moveTo(points[col_1x],points[col_1y]);
+    ctx.lineTo(points[col_2x],points[col_2y]);
+    ctx.stroke();
+    ctx.closePath();
+    
+}
+ 
+}
+    
+} // end MaxMatch 
     
 
