@@ -12,6 +12,9 @@ var sStore = [];
 var storeV = [];
 var storeC = [];
 var storePos = [];
+var outY = [];
+var maxDraw1 = [];
+
 
 
 var lines = [ // Multidimensional array, matches line numbers to plot coordinates
@@ -251,8 +254,8 @@ function initialMatch(){
                     
                      j = 0;   
                      
-                     vertexX.push(points[lines[s][2]]);
-                     vertexY.push(points[lines[s][4]]);
+                     vertexX.push(points[lines[s][2]]); // array of y coordinates on X column of drawn edges s
+                     vertexY.push(points[lines[s][4]]); // array of y coordinates on Y column of drawn edges s
                                       
                            
                     var col_1x = (lines[s][1]); // edges plotted and drawn
@@ -272,7 +275,7 @@ function initialMatch(){
    
     } // Loop end
     
-
+       
     
 } // initialMatch end
 
@@ -300,7 +303,7 @@ function MaxMatch(){ // completes the process and finds the maximum matching
              obj[vertexX[t]]=0;
              }
              for (t in obj) {
-             outx.push(t);
+             outx.push(t); // array of y coordinates on X of drawn lines minus duplicates
              }
              }
             
@@ -334,7 +337,7 @@ if ( missingX == null){
 alert("Max Matching achieved")
 
 }else{
-    vertex(340,missingX,"#eb9f0e");
+    vertex(340,missingX,"#eb9f0e"); // marks empty vertex on X column
     }
 
     } // end markX
@@ -343,7 +346,7 @@ alert("Max Matching achieved")
     
   function markY(){
       
-            var outY = [];
+            
             var missingY = [];
       
                      function eliminateDuplicate() {
@@ -356,7 +359,7 @@ alert("Max Matching achieved")
                           obj[vertexY[t]]=0;
                           }
                           for (t in obj) {
-                          outY.push(t);
+                          outY.push(parseInt(t));  // array of y coordinates on Y of drawn lines minus duplicates
                           }
                    }
   
@@ -391,47 +394,35 @@ var d = 0, y = 0,
 
 
 
-vertex(770,missingY,"#fc1111");
+vertex(770,missingY,"#fc1111"); // marks empty vertex on Y column
    
 } // end markY
   
     for (i = 0;i < store.length; i++){   
-      storeV.push(lines[(store[i]-1)][2])  // array of y coordinate on X column ref numbers of problem lines from lines array  
+      storeV.push(lines[(store[i]-1)][2])  // array of numbers from lines array referring to y coordinates of problems lines on X column  
                       
  }
-  alert(storeV); 
+  
     
    for (i = 0;i < storeV.length; i++){
-        storeC.push(points[storeV[i]])
+        storeC.push(points[storeV[i]]) // array of y coordinates of problem lines on X column
    
    }
     
-   var p = storeC.indexOf(missingX);
+   var p = storeC.indexOf(missingX); // index of missing y coordinate on X column
     
-   storePos.push(storeV[p]);
-    
-   //for( i = 0; i < lines.length;i++){
-        //for (j = 0;j < 5; j++){
-            //if ( lines[i][j]==
-           
-        
-        //}
-   
-   //}
+   storePos.push(storeV[p]); // y coordinate ref number of problem from lines on missing X vertex
     
    
     
-    alert(storeC);
-    
-    alert(p);
+     
     
     
     
-    alert(storePos);
     
-    maxDraw = [storePos-1,storePos,parseFloat(storePos)+1,parseFloat(storePos)+2];
+    maxDraw = [storePos-1,storePos,parseFloat(storePos)+1,parseFloat(storePos)+2]; // array of ref numbers to draw line from missing X vertex
     
-    alert(maxDraw);
+     
     
     probSolve();
     
@@ -455,10 +446,18 @@ vertex(770,missingY,"#fc1111");
     ctx.lineTo(points[col_2x],points[col_2y]);
     ctx.stroke();
     ctx.closePath();
-    
-}
+      
+  
+   }
  
-}
+   }
+    
+    var interceptY = points[parseFloat(storePos)+2] // y coordinate intercept of of maxDraw line
+    var stepY = outY.indexOf(interceptY); //index of interceptY in outY array
+    var maxDraw1 = lines[sStore[stepY]]; // line array of drawn line from y coordinate intercept
+    maxDraw = [maxDraw1[1],maxDraw1[2],maxDraw1[3],maxDraw1[4]]; // line array to draw line
+               
+    probSolve();
     
 } // end MaxMatch 
     
