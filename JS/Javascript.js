@@ -14,6 +14,9 @@ var storeC = [];
 var storePos = [];
 var outY = [];
 var maxDraw1 = [];
+var block = [];
+var vertX = [];
+var store1 =[];
 
 
 
@@ -191,7 +194,7 @@ function initialMatch(){
         function devide(value) { // value = stored problem edges
         return value > k-5 && value <= k // function for deviding up store into sets of 5
         }
-                    var range = store.filter(devide); // each set of 5 stored in array called range on each loop  
+                    var range = store.filter(devide); // each set of 5 stored in array called range on each loop
                     s = (range[0])-1; // 1st value from each set stored as s
             
                     
@@ -287,7 +290,7 @@ function MaxMatch(){ // completes the process and finds the maximum matching
            
       markX();
     
-      function markX() {
+      function markX() { // Marks empty vertex on X column or alerts Max Match found.
       var outx = [];
        missingX = [];
       
@@ -337,14 +340,14 @@ if ( missingX == null){
 alert("Max Matching achieved")
 
 }else{
-    vertex(340,missingX,"#eb9f0e"); // marks empty vertex on X column
+    vertex(340,missingX,"#eb9f0e"); 
     }
 
     } // end markX
     
  markY();
     
-  function markY(){
+  function markY(){ // Marks empty vertex on Y column
       
             
             var missingY = [];
@@ -394,10 +397,15 @@ var d = 0, y = 0,
 
 
 
-vertex(770,missingY,"#fc1111"); // marks empty vertex on Y column
+vertex(770,missingY,"#fc1111"); 
    
 } // end markY
+    
+    xToy();
   
+  
+    function xToy(){
+    
     for (i = 0;i < store.length; i++){   
       storeV.push(lines[(store[i]-1)][2])  // array of numbers from lines array referring to y coordinates of problems lines on X column  
                       
@@ -424,19 +432,19 @@ vertex(770,missingY,"#fc1111"); // marks empty vertex on Y column
     
      
     
-    probSolve();
+    probSolve1();
     
-    function probSolve(){ // Plots input problem
+    function probSolve1(){ // Plots input problem
     
       var col_1x = (maxDraw[0]);
       var col_1y = (maxDraw[1]);
       var col_2x = (maxDraw[2]);
       var col_2y = (maxDraw[3]);
-      plot(); 
+      plot1(); 
     
 
 
-  function plot(){ // Draws input problem
+  function plot1(){ // Draws input problem
       
    var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
@@ -446,18 +454,71 @@ vertex(770,missingY,"#fc1111"); // marks empty vertex on Y column
     ctx.lineTo(points[col_2x],points[col_2y]);
     ctx.stroke();
     ctx.closePath();
-      
+    
+   }
   
    }
  
    }
     
+    yTox();
+    
+    function yTox(){
+    
     var interceptY = points[parseFloat(storePos)+2] // y coordinate intercept of of maxDraw line
     var stepY = outY.indexOf(interceptY); //index of interceptY in outY array
     var maxDraw1 = lines[sStore[stepY]]; // line array of drawn line from y coordinate intercept
     maxDraw = [maxDraw1[1],maxDraw1[2],maxDraw1[3],maxDraw1[4]]; // line array to draw line
+        
+    function probSolve2(){ // Plots input problem
+    
+      var col_1x = (maxDraw[0]);
+      var col_1y = (maxDraw[1]);
+      var col_2x = (maxDraw[2]);
+      var col_2y = (maxDraw[3]);
+        
+      plot2(); 
+    
+
+
+  function plot2(){ // Draws input problem
+      
+   var ctx = document.getElementById('my_canvas').getContext('2d'); 
+    ctx.beginPath();
+    ctx.lineWidth="4";
+    ctx.strokeStyle = "rgba(26, 227, 42, 0.59)";
+    ctx.moveTo(points[col_1x],points[col_1y]);
+    ctx.lineTo(points[col_2x],points[col_2y]);
+    ctx.stroke();
+    ctx.closePath();
+    
+   }
+  
+   }
                
-    probSolve();
+    probSolve2();
+    
+    outX = points[maxDraw1[2]];
+    index = store.indexOf(maxDraw1[0])
+    if (index > -1) {
+    store.splice(index, 1);
+}
+        
+        
+        
+    for ( i = 0;i < (store.length)-1;i++){
+    a = store[i];
+    vertX.push(points[lines[a][2]])
+      
+    }
+   
+    indexX = vertX.indexOf(outX);
+    var q = store[indexX];
+    maxDraw = [lines[q-1][1],lines[q-1][2],lines[q-1][3],lines[q-1][4]]
+    
+    probSolve2();
+        
+    }
     
 } // end MaxMatch 
     
