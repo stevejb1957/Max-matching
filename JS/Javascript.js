@@ -11,9 +11,13 @@ var col_2y = -1;
 var sStore = [];
 var storeNumx = [];
 var storeCoordx = [];
+var storeCoordX = [];
 var storeRefx = [];
+var storeDrawn = [];
+var storeDrawnY = [];
 var vertX = [];
 var missingY = [];
+var outY = [];
 
 
 
@@ -46,6 +50,22 @@ var lines = [ // Multidimensional array, matches line numbers to plot coordinate
 ];
 
 window.onload = title;
+
+ function eliminateDuplicate(arr) {  // Removes duplicate values from passed in arrays
+		  
+		     var t,
+            
+             len=arr.length,
+      
+             obj={};
+ 
+             for (t=0;t<len;t++) {
+             obj[arr[t]]=0;
+             }
+                   for (t in obj) {
+                   out.push(parseInt(t)); 
+                   }
+     }
 
 function title(){ 
     
@@ -172,7 +192,7 @@ function probSolve(){ // Plots input problem
  
 }
   
-function probSolveY(){ // Plots input problem
+function probSolveY(colour){ // Plots input problem
     
       var col_1x = (maxDrawY[0]);
       var col_1y = (maxDrawY[1]);
@@ -188,7 +208,7 @@ function probSolveY(){ // Plots input problem
    var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.lineWidth="4";
-    ctx.strokeStyle = "rgba(26, 227, 42, 0.59)";
+    ctx.strokeStyle = colour;
     ctx.moveTo(points[col_1x],points[col_1y]);
     ctx.lineTo(points[col_2x],points[col_2y]);
     ctx.stroke();
@@ -197,32 +217,6 @@ function probSolveY(){ // Plots input problem
    }
 	
   } 
-
- function probSolveX(){ // Plots edge X to Y
-    
-      var col_1x = (maxDrawX[0]);
-      var col_1y = (maxDrawX[1]);
-      var col_2x = (maxDrawX[2]);
-      var col_2y = (maxDrawX[3]);
-        
-      plotX(); 
-    
-
-
-  function plotX(){ // Draws edge X to Y
-      
-   var ctx = document.getElementById('my_canvas').getContext('2d'); 
-    ctx.beginPath();
-    ctx.lineWidth="4";
-    ctx.strokeStyle = "rgba(26, 227, 42, 0.59)";
-    ctx.moveTo(points[col_1x],points[col_1y]);
-    ctx.lineTo(points[col_2x],points[col_2y]);
-    ctx.stroke();
-    ctx.closePath();
-    
-   }
-  
-  }
 
 
 // Step 1 initial guess
@@ -305,6 +299,8 @@ function initialMatch(){
                     
                      j = 0;   
                      
+         
+                     storeDrawn.push(lines[s][2]); // array of drawn edge ref numbers of y coordinates on X column
                      vertexX.push(points[lines[s][2]]); // array of y coordinates on X column of drawn edges s
                      vertexY.push(points[lines[s][4]]); // array of y coordinates on Y column of drawn edges s
                                       
@@ -340,36 +336,15 @@ function MaxMatch(){ // completes the process and finds the maximum matching
     
       function markX() { // Marks empty vertex on X column or alerts Max Match found.
           
-      var outX = [];
-       missingX = [];
-      
-      
-      function eliminateDuplicates() {
-		  
-		     var t,
-            
-             len=vertexX.length,
-      
-             obj={};
- 
-             for (t=0;t<len;t++) {
-             obj[vertexX[t]]=0;
-             }
-                   for (t in obj) {
-                   outX.push(t); // array of y coordinates on X of drawn lines minus duplicates
-                   }
-     }
-            
-            
-eliminateDuplicates();
-   
-    
-
-
+       out = []; // Clears out array
+       missingX = [];           
+           
+eliminateDuplicate(vertexX); // Duplicates removed from vertexX 
+  
 var current = [300,400,500,600,700], // compares current with outX and finds missing X column vertex and named missingX
     prevX = [];
-    for(d=0;d<outX.length;d++){
-    prevX[d]=outX[d];
+    for(d=0;d<out.length;d++){
+    prevX[d]=out[d];
     }
     isMatch = false,
     missingX = null;
@@ -399,34 +374,15 @@ alert("Max Matching achieved") // if no X column vertex is empty then Max matchi
     
           function markY(){ // Marks empty vertex on Y column
           
-           outY = [];
-            
-                    
-      
-         function eliminateDuplicate() {
-                     
-                     len=vertexY.length,
-      
-                     obj={};
-    
-                          for (t=0;t<len;t++) {
-                          obj[vertexY[t]]=0;
-                          }
-                               for (t in obj) {
-                               outY.push(parseInt(t));  // array of y coordinates on Y of drawn lines minus duplicates
-                               }
-        }
-  
-
-  eliminateDuplicate();
-   
-    
-
+           out = []; // Clears out array                 
+       
+  eliminateDuplicate(vertexY); // Duplicates removed from vertexY
+ 
 
 var current = [300,400,500,600,700], //compares current with outY and finds missing Y column vertex and named missingY
     prevY = [];
-    for(d=0;d<outY.length;d++){
-    prevY[d]=outY[d];
+    for(d=0;d<out.length;d++){
+    prevY[d]=out[d];
     }
       
     isMatch = false,
@@ -445,19 +401,9 @@ var d = 0, y = 0,
    }
 
 
-
-
-
 vertex(770,missingY,"#fc1111"); 
-   
-} // end markY
-    
-    xToy();
-  
-  
-    function xToy(){ // Finds and draws edge from empty X vertex to Y column along problem line
-    
-            for (i = 0;i < store.length; i++){   
+              
+ for (i = 0;i < store.length; i++){   
             storeNumx.push(lines[(store[i]-1)][2])  // array of numbers from lines array referring to y coordinates of problems lines on X column  
                       
             }
@@ -465,62 +411,75 @@ vertex(770,missingY,"#fc1111");
     
             for (i = 0;i < storeNumx.length; i++){
             storeCoordx.push(points[storeNumx[i]]) // array of y coordinates of problem lines on X column
-            }
+            }             
+        
+ 
+
+   
+} // end markY
     
-    var p = storeCoordx.indexOf(missingX); // index of missing y coordinate on X column
+    
+    
+    xToy();
+  
+    
+  
+    function xToy(){ // Finds and draws edge from empty X vertex to Y column along problem line
+        
+    out = [];  // Clears out array  
+    eliminateDuplicate(storeDrawn); // Removes duplicates from storeDrawn
+        
+        
+    storeNumx = storeNumx.filter(function(val) { // compares StoreNumx and out from StoreDrawn and removes duplicates ( clears drawn lines from problem lines)
+    return out.indexOf(val) == -1;
+    });
+        
+    out = []; // Clears out array
+    eliminateDuplicate(storeCoordx);  // Removes duplicates from storeCoordx
+        
+    var p = out.indexOf(missingX); // index of missing y coordinate on X column
     
     storeRefx.push(storeNumx[p]); // y coordinate ref number of problem from lines on missing X vertex
     
-    maxDrawX = [storeRefx-1,storeRefx,parseFloat(storeRefx)+1,parseFloat(storeRefx)+2]; // array of ref numbers to draw line from missing X vertex
+    maxDrawY= [storeRefx-1,storeRefx,parseFloat(storeRefx)+1,parseFloat(storeRefx)+2]; // array of ref numbers to draw line from missing X vertex
     
-    probSolveX();
+    probSolveY("rgba(26, 227, 42, 0.59)");
+        
+    yC = (points[maxDrawY[3]]);
+        
+    if(yC == missingY){
+          alert("MAX MATCHING FOUND");
+          }else{
+          yTox();
+		  };
     
   }
     
-    yTox();
+    
     
     function yTox(){ // Finds and draws edge from  Y vertex to X column along drawn line
-    
-          var interceptY = points[parseFloat(storeRefx)+2] // y coordinate intercept of of maxDraw line
-          var indexY = outY.indexOf(interceptY); //index of interceptY in outY array
+           
+          var interceptY = points[parseFloat(storeRefx)+2] // y coordinate intercept of maxDraw line
+          var indexY = out.indexOf(interceptY); //index of interceptY in outY array
           maxDrawy = lines[sStore[indexY]]; // line array of drawn line from y coordinate intercept
         
           maxDrawY = [maxDrawy[1],maxDrawy[2],maxDrawy[3],maxDrawy[4]]; // line array to draw line
-		
-	probSolveY();
         
+          probSolveY("rgba(26, 227, 42, 0.59)");
+        
+          var outx = points[maxDrawy[2]]; // y coordinate on X column of YtoX line
+    
+        missingX = outx;
+    
+        storeRefx = [];
+    
+        xToy();
     
    }
         
    
-    var outx = points[maxDrawy[2]]; // y coordinate on X column of YtoX line 
-    index = store.indexOf(maxDrawy[0]) // index of line number YtoX in store( problem edge array)
-	
-         if (index > -1) {
-         store.splice(index, 1); // line number of YtoX removed from store array
-         }
-        
-        
-        
-            for ( i = 0;i < (store.length)-1;i++){
-            a = store[i];
-            vertX.push(points[lines[a][2]]) // array of y cordinates of new store 
-            }
-   
-    indexX = vertX.indexOf(outx); // index of y coordinate outx in VertX
-    var q = store[indexX]; 
-	
-    maxDrawX = [lines[q-1][1],lines[q-1][2],lines[q-1][3],lines[q-1][4]] // draws line from X to Y along problem line
     
-    probSolveX();
-        
-    yC = points[lines[q-1][4]] // y coordinate of line drawn
-	
-          if(yC == missingY){
-          alert("MAX MATCHING FOUND");
-          }else{
-          alert("Keep Trying");
-		  };
+    
     
 } // end MaxMatch 
     
