@@ -363,12 +363,14 @@ for ( ; d < lenC; d++ ) {
 
 if ( missingX == null){
 alert("Max Matching achieved") // if no X column vertex is empty then Max matching must be achieved
-
+exit();
 }else{
     vertex(340,missingX,"#eb9f0e"); 
     }
 
     } // end markX
+    
+    
     
  markY();
     
@@ -443,7 +445,7 @@ vertex(770,missingY,"#fc1111");
     
     maxDrawY= [storeRefx-1,storeRefx,parseFloat(storeRefx)+1,parseFloat(storeRefx)+2]; // array of ref numbers to draw line from missing X vertex
     
-    probSolveY("rgba(26, 227, 42, 0.59)");
+    probSolveY("#000");
         
     yC = (points[maxDrawY[3]]);
         
@@ -465,7 +467,7 @@ vertex(770,missingY,"#fc1111");
         
           maxDrawY = [maxDrawy[1],maxDrawy[2],maxDrawy[3],maxDrawy[4]]; // line array to draw line
         
-          probSolveY("rgba(26, 227, 42, 0.59)");
+          probSolveY("#f00f17");
         
           var outx = points[maxDrawy[2]]; // y coordinate on X column of YtoX line
     
