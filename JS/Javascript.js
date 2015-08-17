@@ -18,7 +18,7 @@ var storeDrawnY = [];
 var vertX = [];
 var missingY = [];
 var outY = [];
-
+var current = [300,400,500,600,700];
 
 
 var lines = [ // Multidimensional array, matches line numbers to plot coordinates
@@ -340,26 +340,8 @@ function MaxMatch(){ // completes the process and finds the maximum matching
        missingX = [];           
            
 eliminateDuplicate(vertexX); // Duplicates removed from vertexX 
-  
-var current = [300,400,500,600,700], // compares current with outX and finds missing X column vertex and named missingX
-    prevX = [];
-    for(d=0;d<out.length;d++){
-    prevX[d]=out[d];
-    }
-    isMatch = false,
-    missingX = null;
-
-var d = 0, y = 0,
-    lenC = current.length,
-    lenP = prevX.length;
-
-for ( ; d < lenC; d++ ) {
-    isMatch = false;
-    for ( y = 0; y < lenP; y++ ) {
-        if (current[d] == prevX[y]) isMatch = true;
-    }
-    if ( !isMatch ) missingX = current[d]; 
-}
+          
+missingX = parseInt(_.difference(current,out)); // compares current with out  and finds missing X column vertex named missingX         
 
 if ( missingX == null){
 alert("Max Matching achieved") // if no X column vertex is empty then Max matching must be achieved
@@ -379,29 +361,8 @@ exit();
            out = []; // Clears out array                 
        
   eliminateDuplicate(vertexY); // Duplicates removed from vertexY
- 
-
-var current = [300,400,500,600,700], //compares current with outY and finds missing Y column vertex and named missingY
-    prevY = [];
-    for(d=0;d<out.length;d++){
-    prevY[d]=out[d];
-    }
-      
-    isMatch = false,
-    missingY = null;
-
-var d = 0, y = 0,
-    lenC = current.length,
-    lenP = prevY.length;
-
-    for ( ; d < lenC; d++ ) {
-    isMatch = false;
-          for ( y = 0; y < lenP; y++ ) {
-          if (current[d] == prevY[y]) isMatch = true;
-          }
-    if ( !isMatch ) missingY = current[d]; 
-   }
-
+              
+  missingY = parseInt(_.difference(current,out)); // compares current with out  and finds missing Y column vertex named missingY 
 
 vertex(770,missingY,"#fc1111"); 
               
