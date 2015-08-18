@@ -219,11 +219,6 @@ function probSolveY(colour){ // Plots input problem
 	
   } 
 
-function divide(value) 
-{ // value = stored problem edges
-    return value > k-5 && value <= k; // function for deviding up store into sets of 5
-}
-
 // Step 1 initial guess
 function initialMatch()
 { 
@@ -235,7 +230,10 @@ function initialMatch()
         
     for (var k = 5; k <= 25; k += 5)
     {    
-        var range = store.filter(divide); // each set of 5 stored in array called range on each loop
+        var range = store.filter(function(value)
+        {
+            return value > k-5 && value <= k;
+        }.bind(this, k)); // each set of 5 stored in array called range on each loop
         if (range.length == 0) 
         { // checking to see if no problem input for a vertex
             alert("Problem data missing,a solution cannot be found.Please try again and enter data for each vertex");
