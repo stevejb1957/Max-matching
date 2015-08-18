@@ -219,116 +219,97 @@ function probSolveY(colour){ // Plots input problem
 	
   } 
 
+function divide(value) 
+{ // value = stored problem edges
+    return value > k-5 && value <= k; // function for deviding up store into sets of 5
+}
 
 // Step 1 initial guess
-
-function initialMatch(){ 
-
-// store holds the array of all selected problem edges 
-    
+function initialMatch()
+{ 
+    // store holds the array of all selected problem edges     
     var s;
     var c;
     var range = [];
-    var conflict = [];
-    
+    var conflict = [];    
         
-     for (k = 5;k <= 25;k=k+5){ // Loop start
-   
-        function devide(value) { // value = stored problem edges
-        return value > k-5 && value <= k // function for deviding up store into sets of 5
+    for (var k = 5; k <= 25; k += 5)
+    {    
+        var range = store.filter(divide); // each set of 5 stored in array called range on each loop
+        s = (range[0])-1; // 1st value from each set stored as s            
+                    
+        if (s != s) 
+        { // checking to see if no problem input for a vertex
+            alert("Problem data missing,a solution cannot be found.Please try again and enter data for each vertex");
+            window.location.reload(); // clears page to start again
+            break;
         }
-                    var range = store.filter(devide); // each set of 5 stored in array called range on each loop
-                    s = (range[0])-1; // 1st value from each set stored as s
-            
-                    
-                       if (s != s) { // checking to see if no problem input for a vertex
-                       alert("Problem data missing,a solution cannot be found.Please try again and enter data for each vertex");
-                       window.location.reload() // clears page to start again
-                       break
-                       }else{
-                           c = (points[lines[s][4]]); // stores y cordinate on Y column of s edge in variable c
-                           };
-         
-                             
-                        
-                        for ( var j = 0;j < conflict.length;j++){ // checks conflict on Y column.Loops over lenghth of conflict array checking against c
-                            
-                                if (c == conflict[j]){ // if conflict passes into if statement
-                                    
-                                                                    
-                                    if(range.length == 1){ 
-                                    s = sStore.slice(-1)[0];
-                                    }else
-                                        
-                                                      if (range.length == 2){
-                                                      s = (range[1])-1;    // sets s to 2nd line in range array to overcome conflict
-                                                      c = (points[lines[s][4]]);
-                                                      range.length = 1
-                                                      j = 0; 
-                                                 }else
-                                                     
-                                                     if (range.length == 3){
-                                                      s = (range[1])-1;    // sets s to 3rd line in range array to overcome conflict
-                                                      c = (points[lines[s][4]]);
-                                                      range.shift();
-                                                      j = 0; 
-                                        
-                                                 }else
-                                                     
-                                                     if (range.length == 4){
-                                                      s = (range[1])-1;     // sets s to 4th line in range array to overcome conflict
-                                                      c = (points[lines[s][4]]);
-                                                      range.shift();
-                                                      j = 0; 
-                                                 
-                                                 }else
-                                                     
-                                                     if (range.length == 5){
-                                                      s = (range[1])-1;  // sets s to 5th line in range array to overcome conflict
-                                                      c = (points[lines[s][4]]);
-                                                      range.shift();
-                                                      j = 0; 
-                                         }
-                                continue;
-                              }
-                      }
+        else
+        {
+            c = (points[lines[s][4]]); // stores y cordinate on Y column of s edge in variable c
+        }                 
+                       
+        for (var j = 0; j < conflict.length; j++)
+        { // checks conflict on Y column.Loops over lenghth of conflict array checking against c            
+            if (c == conflict[j])
+            { // if conflict passes into if statement    
+                if(range.length == 1)
+                { 
+                    s = sStore.slice(-1)[0];
+                }
+                else if (range.length == 2)
+                {
+                    s = (range[1])-1;    // sets s to 2nd line in range array to overcome conflict
+                    c = (points[lines[s][4]]);
+                    range.length = 1;
+                    j = 0; 
+                }
+                else if (range.length == 3)
+                {
+                    s = (range[1])-1;    // sets s to 3rd line in range array to overcome conflict
+                    c = (points[lines[s][4]]);
+                    range.shift();
+                    j = 0;                     
+                }
+                else if (range.length == 4)
+                {
+                    s = (range[1])-1;     // sets s to 4th line in range array to overcome conflict
+                    c = (points[lines[s][4]]);
+                    range.shift();
+                    j = 0;                              
+                }
+                else if (range.length == 5)
+                {
+                    s = (range[1])-1;  // sets s to 5th line in range array to overcome conflict
+                    c = (points[lines[s][4]]);
+                    range.shift();
+                    j = 0; 
+                }
+            }
+        }                      
                                 
-                                
-                                
-                    conflict.push(points[lines[s][4]]); // array of y coordinates on Y column of drawn edges stored in conflict to enable conflict checking
-                    sStore.push(s); // stores drawn s lines in array sStore
-                    
-                     j = 0;   
-                     
-         
-                     storeDrawn.push(lines[s][2]); // array of drawn edge ref numbers of y coordinates on X column
-                     vertexX.push(points[lines[s][2]]); // array of y coordinates on X column of drawn edges s
-                     vertexY.push(points[lines[s][4]]); // array of y coordinates on Y column of drawn edges s
-                                      
-                           
-                    var col_1x = (lines[s][1]); // edges plotted and drawn
-                    var col_1y = (lines[s][2]);
-                    var col_2x = (lines[s][3]);
-                    var col_2y = (lines[s][4]);
+        conflict.push(points[lines[s][4]]); // array of y coordinates on Y column of drawn edges stored in conflict to enable conflict checking
+        sStore.push(s); // stores drawn s lines in array sStore        
+        j = 0;   
+        storeDrawn.push(lines[s][2]); // array of drawn edge ref numbers of y coordinates on X column
+        vertexX.push(points[lines[s][2]]); // array of y coordinates on X column of drawn edges s
+        vertexY.push(points[lines[s][4]]); // array of y coordinates on Y column of drawn edges s
+               
+        var col_1x = (lines[s][1]); // edges plotted and drawn
+        var col_1y = (lines[s][2]);
+        var col_2x = (lines[s][3]);
+        var col_2y = (lines[s][4]);
 
-                    var ctx = document.getElementById('my_canvas').getContext('2d'); 
-                    ctx.beginPath();
-                    ctx.lineWidth="5";
-                    ctx.strokeStyle = "#000";
-                    ctx.moveTo(points[col_1x],points[col_1y]);
-                    ctx.lineTo(points[col_2x],points[col_2y]);
-                    ctx.stroke();
-                    ctx.closePath();
-
-   
-    } // Loop end
-    
-       
-    
-} // initialMatch end
-
-
-
+        var ctx = document.getElementById('my_canvas').getContext('2d'); 
+        ctx.beginPath();
+        ctx.lineWidth="5";
+        ctx.strokeStyle = "#000";
+        ctx.moveTo(points[col_1x],points[col_1y]);
+        ctx.lineTo(points[col_2x],points[col_2y]);
+        ctx.stroke();
+        ctx.closePath();   
+    }
+}
 
 function MaxMatch(){ // completes the process and finds the maximum matching
     
