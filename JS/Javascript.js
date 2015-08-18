@@ -51,21 +51,22 @@ var lines = [ // Multidimensional array, matches line numbers to plot coordinate
 
 window.onload = title;
 
- function eliminateDuplicate(arr) {  // Removes duplicate values from passed in arrays
-		  
-		     var t,
-            
-             len=arr.length,
-      
-             obj={};
- 
-             for (t=0;t<len;t++) {
-             obj[arr[t]]=0;
-             }
-                   for (t in obj) {
-                   out.push(parseInt(t)); 
-                   }
-     }
+// Removes duplicate values from array
+function eliminateDuplicate(arr) 
+{       
+    var t;
+    var len = arr.length;
+    var obj = {};
+
+    for (var t = 0; t < len; t++) 
+    {   
+        obj[arr[t]] = 0;
+    }
+    for (t in obj) 
+    {
+        out.push(parseInt(t)); 
+    }
+}
 
 function title(){ 
     
