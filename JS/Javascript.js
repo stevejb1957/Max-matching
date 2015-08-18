@@ -236,9 +236,7 @@ function initialMatch()
     for (var k = 5; k <= 25; k += 5)
     {    
         var range = store.filter(divide); // each set of 5 stored in array called range on each loop
-        s = (range[0])-1; // 1st value from each set stored as s            
-                    
-        if (s != s) 
+        if (range.length == 0) 
         { // checking to see if no problem input for a vertex
             alert("Problem data missing,a solution cannot be found.Please try again and enter data for each vertex");
             window.location.reload(); // clears page to start again
@@ -246,6 +244,7 @@ function initialMatch()
         }
         else
         {
+            s = (range[0])-1; // 1st value from each set stored as s   
             c = (points[lines[s][4]]); // stores y cordinate on Y column of s edge in variable c
         }                 
                        
