@@ -421,10 +421,26 @@ vertex(770,missingY,"#fc1111");
     
     
     function yTox(){ // Finds and draws edge from  Y vertex to X column along drawn line
-           
+    
+        
+          out = [];
+          eliminateDuplicate(vertexY)
+          
           var interceptY = points[parseFloat(storeRefx)+2] // y coordinate intercept of maxDraw line
-          var indexY = out.indexOf(interceptY); //index of interceptY in outY array
-          maxDrawy = lines[sStore[indexY]]; // line array of drawn line from y coordinate intercept
+         
+          out = [];
+          eliminateDuplicate(sStore);
+                 
+        
+               for ( x = 0;x < out.length;x++){ // Finds drawn line that ends on the interceptY vertex
+              
+                   z = out[x];
+                   if(points[lines[z][4]] == interceptY){
+                    out = out[x];    
+                         }
+              }
+                 
+          maxDrawy = lines[out]; // line array of drawn line from y coordinate intercept
         
           maxDrawY = [maxDrawy[1],maxDrawy[2],maxDrawy[3],maxDrawy[4]]; // line array to draw line
         
@@ -432,11 +448,11 @@ vertex(770,missingY,"#fc1111");
         
           var outx = points[maxDrawy[2]]; // y coordinate on X column of YtoX line
     
-        missingX = outx;
+          missingX = outx;
     
-        storeRefx = [];
+          storeRefx = [];
     
-        xToy();
+          xToy();
     
    }
         
