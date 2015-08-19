@@ -250,7 +250,7 @@ function initialMatch(){
          
                              
                         
-                        for ( var j = 0;j < conflict.length;j++){ // checks conflict on Y column.Loops over lenghth of conflict array checking against c
+                        for ( var j = 0;j < conflict.length;j++){ // checks conflict on Y column.Loops over length of conflict array checking against c
                             
                                 if (c == conflict[j]){ // if conflict passes into if statement
                                     
@@ -341,13 +341,17 @@ function MaxMatch(){ // completes the process and finds the maximum matching
            
 eliminateDuplicate(vertexX); // Duplicates removed from vertexX 
           
-missingX = parseInt(_.difference(current,out)); // compares current with out  and finds missing X column vertex named missingX         
-
-if ( missingX == null){
+missingX = _.difference(current,out); // compares current with out  and finds missing X column vertex named missingX 
+          
+ missingMinX = _.min(missingX);
+ missingMaxX = _.max(missingX); 
+          
+if ( missingMinX == null){
 alert("Max Matching achieved") // if no X column vertex is empty then Max matching must be achieved
 exit();
 }else{
-    vertex(340,missingX,"#eb9f0e"); 
+    vertex(340,missingMinX,"#eb9f0e"); 
+    vertex(340,missingMaxX,"#eb9f0e");
     }
 
     } // end markX
@@ -362,9 +366,13 @@ exit();
        
   eliminateDuplicate(vertexY); // Duplicates removed from vertexY
               
-  missingY = parseInt(_.difference(current,out)); // compares current with out  and finds missing Y column vertex named missingY 
+  missingY = _.difference(current,out); // compares current with out  and finds missing Y column vertex named missingY 
+                         
+  missingMinY = _.min(missingY);
+  missingMaxY = _.max(missingY);          
 
-vertex(770,missingY,"#fc1111"); 
+vertex(770,missingMinY,"#fc1111"); 
+vertex(770,missingMaxY,"#fc1111");               
               
  for (i = 0;i < store.length; i++){   
             storeNumx.push(lines[(store[i]-1)][2])  // array of numbers from lines array referring to y coordinates of problems lines on X column  
@@ -400,7 +408,7 @@ vertex(770,missingY,"#fc1111");
     out = []; // Clears out array
     eliminateDuplicate(storeCoordx);  // Removes duplicates from storeCoordx
         
-    var p = out.indexOf(missingX); // index of missing y coordinate on X column
+    var p = out.indexOf(missingMinX); // index of missing y coordinate on X column
     
     storeRefx.push(storeNumx[p]); // y coordinate ref number of problem from lines on missing X vertex
     
@@ -410,7 +418,7 @@ vertex(770,missingY,"#fc1111");
         
     yC = (points[maxDrawY[3]]);
         
-    if(yC == missingY){
+    if(yC == missingMinY){
           alert("MAX MATCHING FOUND");
           }else{
           yTox();
@@ -448,7 +456,7 @@ vertex(770,missingY,"#fc1111");
         
           var outx = points[maxDrawy[2]]; // y coordinate on X column of YtoX line
     
-          missingX = outx;
+          missingMinX = outx;
     
           storeRefx = [];
     
