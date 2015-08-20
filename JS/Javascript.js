@@ -18,7 +18,7 @@ var storeDrawnY = [];
 var vertX = [];
 var missingY = [];
 var outY = [];
-var current = [300,400,500,600,700];
+var vertexYPositions = [300, 400, 500, 600, 700];
 
 // Multidimensional array, matches line numbers to plot coordinates
 var lines = [ 
@@ -319,7 +319,7 @@ function markX()
     out = []; // Clears out array
     missingX = [];        
     eliminateDuplicate(vertexX); // Duplicates removed from vertexX 
-    missingX = parseInt(_.difference(current,out)); // compares current with out  and finds missing X column vertex named missingX         
+    missingX = parseInt(_.difference(vertexYPositions,out)); // compares vertexYPositions with out  and finds missing X column vertex named missingX         
 
     if (missingX == null)
     {
@@ -337,7 +337,7 @@ function markY()
 { 
     out = []; // Clears out array   
     eliminateDuplicate(vertexY); // Duplicates removed from vertexY
-    missingY = parseInt(_.difference(current,out)); // compares current with out  and finds missing Y column vertex named missingY 
+    missingY = parseInt(_.difference(vertexYPositions,out)); // compares vertexYPositions with out  and finds missing Y column vertex named missingY 
     vertex(770,missingY,"#fc1111"); 
 
     for (var i = 0;i < store.length; i++)
