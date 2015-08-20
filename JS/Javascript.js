@@ -144,25 +144,26 @@ function vertex(x, y, colour)
 
 function drawEdges()
 {
-    for(var i = 0; i < 25; i++)
+    for(var i = 0; i < vertexYPositions.length; i++)
     {
-        col_1x = col_1x + 4;
-        col_1y = col_1y + 4;
-        col_2x = col_2x + 4;
-        col_2y = col_2y + 4;
-        drawEdge();
+        var leftY = vertexYPositions[i];
+        for (var j = 0; j < vertexYPositions.length; j++) 
+        {
+            var rightY = vertexYPositions[j];
+            drawEdge(leftY, rightY);
+        }        
     }
 }
 
 // Draws background edge
-function drawEdge()
+function drawEdge(leftY, rightY)
 {     
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.lineWidth="3";
     ctx.strokeStyle = "rgba(31, 26, 26, 0.6)";
-    ctx.moveTo(points[col_1x],points[col_1y]);
-    ctx.lineTo(points[col_2x],points[col_2y]);
+    ctx.moveTo(400, leftY);
+    ctx.lineTo(700, rightY);
     ctx.stroke();
     ctx.closePath();  
 }
