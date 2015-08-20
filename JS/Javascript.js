@@ -54,6 +54,21 @@ window.onload = run;
 function run()
 {
     title();
+    drawVertexIds();
+    drawVertices();
+
+    for(var i = 0; i < 25; i++)
+    {
+        col_1x = col_1x + 4;
+        col_1y = col_1y + 4;
+        col_2x = col_2x + 4;
+        col_2y = col_2y + 4;
+        drawEdges();
+    }
+}
+
+function drawVertexIds()
+{
     vertexId("a",360,300); // ID vertices
     vertexId("A",730,300);
     vertexId("b",360,400);
@@ -64,22 +79,16 @@ function run()
     vertexId("D",730,600);
     vertexId("e",360,700);
     vertexId("E",730,700);
+}
 
+function drawVertices()
+{
     for(var x = 400; x < 800; x += 300)
     {      
         for(var y = 300; y < 800; y += 100)
         {
-            vertex(x,y,"#000");
+            vertex(x, y, "#000");
         }    
-    }
-
-    for(var i = 0; i < 25; i++)
-    {
-        col_1x = col_1x + 4;
-        col_1y = col_1y + 4;
-        col_2x = col_2x + 4;
-        col_2y = col_2y + 4;
-        drawEdges();
     }
 }
 
