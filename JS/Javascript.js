@@ -56,15 +56,7 @@ function run()
     title();
     drawVertexIds();
     drawVertices();
-
-    for(var i = 0; i < 25; i++)
-    {
-        col_1x = col_1x + 4;
-        col_1y = col_1y + 4;
-        col_2x = col_2x + 4;
-        col_2y = col_2y + 4;
-        drawEdges();
-    }
+    drawEdges();
 }
 
 function drawVertexIds()
@@ -150,8 +142,20 @@ function vertex(x, y, colour)
     ctx.closePath();
 }
 
-// Draws background edges
 function drawEdges()
+{
+    for(var i = 0; i < 25; i++)
+    {
+        col_1x = col_1x + 4;
+        col_1y = col_1y + 4;
+        col_2x = col_2x + 4;
+        col_2y = col_2y + 4;
+        drawEdge();
+    }
+}
+
+// Draws background edge
+function drawEdge()
 {     
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
