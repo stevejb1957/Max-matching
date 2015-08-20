@@ -20,8 +20,8 @@ var missingY = [];
 var outY = [];
 var current = [300,400,500,600,700];
 
-
-var lines = [ // Multidimensional array, matches line numbers to plot coordinates
+// Multidimensional array, matches line numbers to plot coordinates
+var lines = [ 
     [1,0,1,2,3],
     [2,4,5,6,7],
     [3,8,9,10,11],
@@ -68,9 +68,9 @@ function eliminateDuplicate(arr)
     }
 }
 
-function title(){ 
-    
-var ctx = document.getElementById('my_canvas').getContext('2d'); 
+function title()
+{     
+    var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.fillStyle = "rgba(79, 33, 235, 0.72)";
     ctx.shadowColor = "#000";
     ctx.lineWidth ="1";
@@ -80,14 +80,12 @@ var ctx = document.getElementById('my_canvas').getContext('2d');
     ctx.shadowBlur = 3;
     ctx.font = "bold 80px Ariel";
     ctx.fillText("Max Matching",380,100);
-    ctx.strokeText("Max Matching",380,100);   
-    
+    ctx.strokeText("Max Matching",380,100);       
 }
 
-
-function vertexId(I,vx,vy){
-    
-var ctx = document.getElementById('my_canvas').getContext('2d'); 
+function vertexId(I, vx, vy)
+{    
+    var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.fillStyle = "#f00f17";
     ctx.shadowColor = "#000000";
     ctx.lineWidth ="1";
@@ -97,23 +95,23 @@ var ctx = document.getElementById('my_canvas').getContext('2d');
     ctx.shadowBlur = 3;
     ctx.font = "30px Ariel";
     ctx.fillText(I,vx,vy);
-    ctx.strokeText(I,vx,vy);   
-
-
+    ctx.strokeText(I,vx,vy); 
 }
-    vertexId("a",360,300); // ID vertices
-    vertexId("A",730,300);
-    vertexId("b",360,400);
-    vertexId("B",730,400);
-    vertexId("c",360,500);
-    vertexId("C",730,500);
-    vertexId("d",360,600);
-    vertexId("D",730,600);
-    vertexId("e",360,700);
-    vertexId("E",730,700);
 
-function vertex(x,y,colour){ // Draws vertices
-    
+vertexId("a",360,300); // ID vertices
+vertexId("A",730,300);
+vertexId("b",360,400);
+vertexId("B",730,400);
+vertexId("c",360,500);
+vertexId("C",730,500);
+vertexId("d",360,600);
+vertexId("D",730,600);
+vertexId("e",360,700);
+vertexId("E",730,700);
+
+// Draws vertices
+function vertex(x, y, colour)
+{     
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.arc(x,y,10,0,2 * Math.PI,false);
@@ -122,29 +120,26 @@ function vertex(x,y,colour){ // Draws vertices
     ctx.closePath();
 }
 
-   for(x=400;x<800;x=x+300){
-       
-       
-   for(y=300;y<800;y=y+100){
-       
-    vertex(x,y,"#000");
-}
-    
+for(var x = 400; x < 800; x += 300)
+{      
+    for(var y = 300; y < 800; y += 100)
+    {
+        vertex(x,y,"#000");
+    }    
 }
 
-
-for(var i = 0;i < 25;i++){
-    
-      col_1x = col_1x + 4;
-      col_1y = col_1y + 4;
-      col_2x = col_2x + 4;
-      col_2y = col_2y + 4;
-      drawEdges();
+for(var i = 0; i < 25; i++)
+{
+    col_1x = col_1x + 4;
+    col_1y = col_1y + 4;
+    col_2x = col_2x + 4;
+    col_2y = col_2y + 4;
+    drawEdges();
 }
 
-
-function drawEdges(){ // Draws background edges
-    
+// Draws background edges
+function drawEdges()
+{     
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.lineWidth="3";
@@ -152,72 +147,65 @@ function drawEdges(){ // Draws background edges
     ctx.moveTo(points[col_1x],points[col_1y]);
     ctx.lineTo(points[col_2x],points[col_2y]);
     ctx.stroke();
-    ctx.closePath();
-  
+    ctx.closePath();  
 }
 
-function inputLine(){ // Takes input problem and stores in array then passes to function to draw
+// Takes input problem and stores in array then passes to function to draw
+function inputLine()
+{     
+    var l;
+    l = document.getElementById("line");
+    a = l.elements["selection"].value;
+    a--;
+    store.push(a + 1); // pushes edge selection into an array called store
+    probSolve(); // the edge is then sent to probSolve for drawing    
+}    
     
-var l;
-l = document.getElementById("line");
-a = l.elements["selection"].value;
-a = a-1;
-store.push(a + 1); // pushes edge selection into an array called store
-probSolve(); // the edge is then sent to probSolve for drawing
-    
-}
-    
-    
-function probSolve(){ // Plots input problem
-    
-      var col_1x = (lines[a][1]);
-      var col_1y = (lines[a][2]);
-      var col_2x = (lines[a][3]);
-      var col_2y = (lines[a][4]);
-      plot(); 
-    
-
-
-  function plot(){ // Draws input problem
-      
-   var ctx = document.getElementById('my_canvas').getContext('2d'); 
+// Draws input problem
+function plot()
+{       
+    var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.lineWidth="4";
     ctx.strokeStyle = "rgba(245, 15, 15, 1.0)";
-    ctx.moveTo(points[col_1x],points[col_1y]);
-    ctx.lineTo(points[col_2x],points[col_2y]);
+    ctx.moveTo(points[col_1x], points[col_1y]);
+    ctx.lineTo(points[col_2x], points[col_2y]);
     ctx.stroke();
-    ctx.closePath();
-    
+    ctx.closePath();    
 }
- 
+
+// Plots input problem
+function probSolve()
+{     
+    col_1x = (lines[a][1]);
+    col_1y = (lines[a][2]);
+    col_2x = (lines[a][3]);
+    col_2y = (lines[a][4]);
+    plot();  
 }
   
-function probSolveY(colour){ // Plots input problem
-    
-      var col_1x = (maxDrawY[0]);
-      var col_1y = (maxDrawY[1]);
-      var col_2x = (maxDrawY[2]);
-      var col_2y = (maxDrawY[3]);
-        
-      plotY(); 
-    
-
-
-  function plotY(){ // Draws input problem
-      
-   var ctx = document.getElementById('my_canvas').getContext('2d'); 
+// Draws input problem
+function plotY()
+{ 
+    var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
     ctx.lineWidth="4";
     ctx.strokeStyle = colour;
-    ctx.moveTo(points[col_1x],points[col_1y]);
-    ctx.lineTo(points[col_2x],points[col_2y]);
+    ctx.moveTo(points[col_1x], points[col_1y]);
+    ctx.lineTo(points[col_2x], points[col_2y]);
     ctx.stroke();
     ctx.closePath();
-    
-   }
-	
-  } 
+}
+
+// Plots input problem  
+function probSolveY(colour)
+{     
+    col_1x = (maxDrawY[0]);
+    col_1y = (maxDrawY[1]);
+    col_2x = (maxDrawY[2]);
+    col_2y = (maxDrawY[3]);        
+    plotY(); 
+} 
 
 // Step 1 initial guess
 function initialMatch()
@@ -308,120 +296,90 @@ function initialMatch()
     }
 }
 
-function MaxMatch(){ // completes the process and finds the maximum matching
-    
-           
-      markX();
-    
-      function markX() { // Marks empty vertex on X column or alerts Max Match found.
-          
-       out = []; // Clears out array
-       missingX = [];           
-           
-eliminateDuplicate(vertexX); // Duplicates removed from vertexX 
-          
-missingX = parseInt(_.difference(current,out)); // compares current with out  and finds missing X column vertex named missingX         
+// Marks empty vertex on X column or alerts Max Match found.
+function markX() 
+{ 
+    out = []; // Clears out array
+    missingX = [];        
+    eliminateDuplicate(vertexX); // Duplicates removed from vertexX 
+    missingX = parseInt(_.difference(current,out)); // compares current with out  and finds missing X column vertex named missingX         
 
-if ( missingX == null){
-alert("Max Matching achieved") // if no X column vertex is empty then Max matching must be achieved
-exit();
-}else{
-    vertex(340,missingX,"#eb9f0e"); 
+    if (missingX == null)
+    {
+        alert("Max Matching achieved") // if no X column vertex is empty then Max matching must be achieved
+        exit();
+    }
+    else
+    {
+        vertex(340,missingX,"#eb9f0e"); 
+    }
+}    
+
+// Marks empty vertex on Y column
+function markY()
+{ 
+    out = []; // Clears out array   
+    eliminateDuplicate(vertexY); // Duplicates removed from vertexY
+    missingY = parseInt(_.difference(current,out)); // compares current with out  and finds missing Y column vertex named missingY 
+    vertex(770,missingY,"#fc1111"); 
+
+    for (var i = 0;i < store.length; i++)
+    {   
+        storeNumx.push(lines[(store[i]-1)][2])  // array of numbers from lines array referring to y coordinates of problems lines on X column 
     }
 
-    } // end markX
-    
-    
-    
- markY();
-    
-          function markY(){ // Marks empty vertex on Y column
-          
-           out = []; // Clears out array                 
-       
-  eliminateDuplicate(vertexY); // Duplicates removed from vertexY
-              
-  missingY = parseInt(_.difference(current,out)); // compares current with out  and finds missing Y column vertex named missingY 
+    for (var i = 0;i < storeNumx.length; i++)
+    {
+        storeCoordx.push(points[storeNumx[i]]) // array of y coordinates of problem lines on X column
+    }    
+} 
 
-vertex(770,missingY,"#fc1111"); 
-              
- for (i = 0;i < store.length; i++){   
-            storeNumx.push(lines[(store[i]-1)][2])  // array of numbers from lines array referring to y coordinates of problems lines on X column  
-                      
-            }
-  
-    
-            for (i = 0;i < storeNumx.length; i++){
-            storeCoordx.push(points[storeNumx[i]]) // array of y coordinates of problem lines on X column
-            }             
-        
- 
-
-   
-} // end markY
-    
-    
-    
-    xToy();
-  
-    
-  
-    function xToy(){ // Finds and draws edge from empty X vertex to Y column along problem line
-        
+// Finds and draws edge from empty X vertex to Y column along problem line
+function xToy()
+{ 
     out = [];  // Clears out array  
     eliminateDuplicate(storeDrawn); // Removes duplicates from storeDrawn
-        
-        
-    storeNumx = storeNumx.filter(function(val) { // compares StoreNumx and out from StoreDrawn and removes duplicates ( clears drawn lines from problem lines)
-    return out.indexOf(val) == -1;
+    // compares StoreNumx and out from StoreDrawn and removes duplicates ( clears drawn lines from problem lines)
+    storeNumx = storeNumx.filter(function(val) 
+    { 
+        return out.indexOf(val) == -1;
     });
-        
     out = []; // Clears out array
     eliminateDuplicate(storeCoordx);  // Removes duplicates from storeCoordx
-        
     var p = out.indexOf(missingX); // index of missing y coordinate on X column
-    
     storeRefx.push(storeNumx[p]); // y coordinate ref number of problem from lines on missing X vertex
-    
-    maxDrawY= [storeRefx-1,storeRefx,parseFloat(storeRefx)+1,parseFloat(storeRefx)+2]; // array of ref numbers to draw line from missing X vertex
-    
+    maxDrawY = [storeRefx - 1, storeRefx, parseFloat(storeRefx) + 1, parseFloat(storeRefx) + 2]; // array of ref numbers to draw line from missing X vertex
     probSolveY("#000");
-        
     yC = (points[maxDrawY[3]]);
-        
-    if(yC == missingY){
-          alert("MAX MATCHING FOUND");
-          }else{
-          yTox();
-		  };
-    
-  }
-    
-    
-    
-    function yTox(){ // Finds and draws edge from  Y vertex to X column along drawn line
-           
-          var interceptY = points[parseFloat(storeRefx)+2] // y coordinate intercept of maxDraw line
-          var indexY = out.indexOf(interceptY); //index of interceptY in outY array
-          maxDrawy = lines[sStore[indexY]]; // line array of drawn line from y coordinate intercept
-        
-          maxDrawY = [maxDrawy[1],maxDrawy[2],maxDrawy[3],maxDrawy[4]]; // line array to draw line
-        
-          probSolveY("#f00f17");
-        
-          var outx = points[maxDrawy[2]]; // y coordinate on X column of YtoX line
-    
-        missingX = outx;
-    
-        storeRefx = [];
-    
-        xToy();
-    
-   }
-        
-   
-    
-    
-    
-} // end MaxMatch 
-    
+
+    if(yC == missingY)
+    {
+        alert("MAX MATCHING FOUND");
+    }
+    else
+    {
+        yTox();
+    }
+}
+
+// Finds and draws edge from  Y vertex to X column along drawn line
+function yTox()
+{ 
+    var interceptY = points[parseFloat(storeRefx)+2] // y coordinate intercept of maxDraw line
+    var indexY = out.indexOf(interceptY); //index of interceptY in outY array
+    maxDrawy = lines[sStore[indexY]]; // line array of drawn line from y coordinate intercept
+    maxDrawY = [maxDrawy[1],maxDrawy[2],maxDrawy[3],maxDrawy[4]]; // line array to draw line
+    probSolveY("#f00f17");
+    var outx = points[maxDrawy[2]]; // y coordinate on X column of YtoX line
+    missingX = outx;
+    storeRefx = [];
+    xToy();
+}
+
+// completes the process and finds the maximum matching
+function MaxMatch()
+{     
+    markX();  
+    markY();    
+    xToy();
+} 
