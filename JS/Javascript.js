@@ -158,14 +158,8 @@ function drawEdges()
 // Draws background edge
 function drawEdge(leftY, rightY)
 {     
-    var ctx = document.getElementById('my_canvas').getContext('2d'); 
-    ctx.beginPath();
-    ctx.lineWidth="3";
-    ctx.strokeStyle = "rgba(31, 26, 26, 0.6)";
-    ctx.moveTo(400, leftY);
-    ctx.lineTo(700, rightY);
-    ctx.stroke();
-    ctx.closePath();  
+    var colour = "rgba(31, 26, 26, 0.6)";
+    drawLine(400, leftY, 700, rightY, 3, colour);
 }
 
 // Takes input problem and stores in array then passes to function to draw
@@ -181,15 +175,9 @@ function inputLine()
     
 // Draws input problem
 function plot()
-{       
-    var ctx = document.getElementById('my_canvas').getContext('2d'); 
-    ctx.beginPath();
-    ctx.lineWidth="4";
-    ctx.strokeStyle = "rgba(245, 15, 15, 1.0)";
-    ctx.moveTo(points[col_1x], points[col_1y]);
-    ctx.lineTo(points[col_2x], points[col_2y]);
-    ctx.stroke();
-    ctx.closePath();    
+{        
+    var colour = "rgba(245, 15, 15, 1.0)";
+    drawLine(points[col_1x], points[col_1y], points[col_2x], points[col_2y], 4, colour);
 }
 
 // Plots input problem
@@ -205,12 +193,17 @@ function probSolve()
 // Draws input problem
 function plotY()
 { 
+    drawLine(points[col_1x], points[col_1y], points[col_2x], points[col_2y], 4, colour);
+}
+
+function drawLine(fromX, fromY, toX, toY, lineWidth, colour)
+{
     var ctx = document.getElementById('my_canvas').getContext('2d'); 
     ctx.beginPath();
-    ctx.lineWidth="4";
+    ctx.lineWidth = lineWidth;
     ctx.strokeStyle = colour;
-    ctx.moveTo(points[col_1x], points[col_1y]);
-    ctx.lineTo(points[col_2x], points[col_2y]);
+    ctx.moveTo(fromX, fromY);
+    ctx.lineTo(toX, toY);
     ctx.stroke();
     ctx.closePath();
 }
