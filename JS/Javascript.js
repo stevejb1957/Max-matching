@@ -49,7 +49,39 @@ var lines = [
     [25,96,97,98,99]
 ];
 
-window.onload = title;
+window.onload = run;
+
+function run()
+{
+    title();
+    vertexId("a",360,300); // ID vertices
+    vertexId("A",730,300);
+    vertexId("b",360,400);
+    vertexId("B",730,400);
+    vertexId("c",360,500);
+    vertexId("C",730,500);
+    vertexId("d",360,600);
+    vertexId("D",730,600);
+    vertexId("e",360,700);
+    vertexId("E",730,700);
+
+    for(var x = 400; x < 800; x += 300)
+    {      
+        for(var y = 300; y < 800; y += 100)
+        {
+            vertex(x,y,"#000");
+        }    
+    }
+
+    for(var i = 0; i < 25; i++)
+    {
+        col_1x = col_1x + 4;
+        col_1y = col_1y + 4;
+        col_2x = col_2x + 4;
+        col_2y = col_2y + 4;
+        drawEdges();
+    }
+}
 
 // Removes duplicate values from array
 function eliminateDuplicate(arr) 
@@ -98,17 +130,6 @@ function vertexId(I, vx, vy)
     ctx.strokeText(I,vx,vy); 
 }
 
-vertexId("a",360,300); // ID vertices
-vertexId("A",730,300);
-vertexId("b",360,400);
-vertexId("B",730,400);
-vertexId("c",360,500);
-vertexId("C",730,500);
-vertexId("d",360,600);
-vertexId("D",730,600);
-vertexId("e",360,700);
-vertexId("E",730,700);
-
 // Draws vertices
 function vertex(x, y, colour)
 {     
@@ -118,23 +139,6 @@ function vertex(x, y, colour)
     ctx.fillStyle = colour;
     ctx.fill();
     ctx.closePath();
-}
-
-for(var x = 400; x < 800; x += 300)
-{      
-    for(var y = 300; y < 800; y += 100)
-    {
-        vertex(x,y,"#000");
-    }    
-}
-
-for(var i = 0; i < 25; i++)
-{
-    col_1x = col_1x + 4;
-    col_1y = col_1y + 4;
-    col_2x = col_2x + 4;
-    col_2y = col_2y + 4;
-    drawEdges();
 }
 
 // Draws background edges
