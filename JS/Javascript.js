@@ -19,6 +19,9 @@ var vertX = [];
 var missingY = [];
 var outY = [];
 var current = [300,400,500,600,700];
+var interceptY;
+var storeNumEx = [];
+var count = 0;
 
 
 var lines = [ // Multidimensional array, matches line numbers to plot coordinates
@@ -407,10 +410,12 @@ vertex(770,missingMaxY,"#fc1111");
         
     out = []; // Clears out array
     eliminateDuplicate(storeCoordx);  // Removes duplicates from storeCoordx
+     
+    searchX()
         
-    var p = out.indexOf(missingMinX); // index of missing y coordinate on X column
+    //var p = out.indexOf(missingMinX); // index of missing y coordinate on X column
     
-    storeRefx.push(storeNumx[p]); // y coordinate ref number of problem from lines on missing X vertex
+    //storeRefx.push(storeNumx[p]); // y coordinate ref number of problem from lines on missing X vertex
     
     maxDrawY= [storeRefx-1,storeRefx,parseFloat(storeRefx)+1,parseFloat(storeRefx)+2]; // array of ref numbers to draw line from missing X vertex
     
@@ -418,14 +423,26 @@ vertex(770,missingMaxY,"#fc1111");
         
     yC = (points[maxDrawY[3]]);
         
-    if(yC == missingMinY){
-          alert("MAX MATCHING FOUND");
-          }else{
-          yTox();
+    if(yC == missingMinY & missingY.length == 1){
+            alert("Max Matching Found")
+            
+        }else if ( yC == missingMinY & missingY.length == 2 & count == 0 ){ 
+          count = 1;  
+          missingMinX = missingMaxX;
+          missingMinY = missingMaxY;
+            
+          xToy(); 
+            
+          }else if( yC == missingMinY & missingY.length == 2 & count == 1) {
+              alert("Max Matching Found");
+          
+          }else
+              
+          {yTox();
 		  };
     
-  }
-    
+  
+    }
     
     
     function yTox(){ // Finds and draws edge from  Y vertex to X column along drawn line
@@ -434,7 +451,7 @@ vertex(770,missingMaxY,"#fc1111");
           out = [];
           eliminateDuplicate(vertexY)
           
-          var interceptY = points[parseFloat(storeRefx)+2] // y coordinate intercept of maxDraw line
+         interceptY = points[parseFloat(storeRefx)+2] // y coordinate intercept of maxDraw line
          
           out = [];
           eliminateDuplicate(sStore);
@@ -459,13 +476,31 @@ vertex(770,missingMaxY,"#fc1111");
           missingMinX = outx;
     
           storeRefx = [];
+        
+          
     
           xToy();
     
    }
         
    
+         
+    function searchX(){
+        
     
+        for ( x = 0; x < storeNumx.length;x++){
+             if(points[storeNumx[x]+2]== interceptY){
+             storeNumEx.push(storeNumx[x])
+             storeNumx = _.difference(storeNumx,storeNumEx);
+             }
+             z = storeNumx[x]
+            if( points[z] == missingMinX){
+                 storeRefx = z;
+                 break;
+            }
+        }
+        
+    }
     
     
 } // end MaxMatch 
