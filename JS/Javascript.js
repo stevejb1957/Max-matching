@@ -18,7 +18,8 @@ var current = [300,400,500,600,700];
 var interceptY;
 var storeNumEx = [];
 var count = 0;
-
+var check = [];
+var conflict = [];
 
 var lines = [ // Multidimensional array, matches line numbers to plot coordinates
     [1,0,1,2,3],
@@ -76,7 +77,7 @@ function searchX(){
                  
              storeNumEx.push(storeNumx[x])
              
-             storeNumx = _.difference(storeNumx,storeNumEx); // removes ref to y coordinates in storeNumx which are used in previous solutions( used in multi vertex              problem)
+             storeNumx = _.difference(storeNumx,storeNumEx); // removes ref to y coordinates in storeNumx which are used in previous solutions( used in multi vertex               problem)
                  
              }
             
@@ -91,6 +92,32 @@ function searchX(){
         }
         
 }
+
+ function emptyYvertex(){
+        
+        out = [];
+      
+        for (x = 0;x < store.length;x++){
+        
+        check.push(points[lines[store[x]-1][4]])
+        }
+        
+        eliminateDuplicate(check);
+        
+        
+        if ( out.length == conflict.length){
+             alert("Max matching found.Enter another problem");
+             End();
+            
+        }
+          
+}
+
+function End(){
+    
+  window.location = self.location;
+}
+
 
 function title(){ 
     
@@ -152,7 +179,9 @@ ctx.closePath();
 }
 
 for(x=400;x<800;x=x+300){
-       
+
+    
+    
 for(y=300;y<800;y=y+100){
        
 vertex(x,y,"#000");
@@ -290,7 +319,8 @@ function initialMatch(){
 var s;
 var c;
 var range = [];
-var conflict = [];
+conflict = [];
+out = [];
     
         
      for (k = 5;k <= 25;k=k+5){ // Loop start
@@ -358,6 +388,8 @@ var conflict = [];
                                 
 conflict.push(points[lines[s][4]]); // array of y coordinates on Y column of drawn edges stored in conflict to enable conflict checking
          
+
+         
 sStore.push(s); // stores drawn s lines in array sStore
          
 j = 0;   
@@ -397,7 +429,11 @@ ctx.closePath();
    
     } // Loop end
     
-       
+out = [];
+    
+eliminateDuplicate(conflict);
+         
+conflict = out;     
     
 } // initialMatch end
 
@@ -406,6 +442,7 @@ ctx.closePath();
 
 function MaxMatch(){ // completes the process and finds the maximum matching
     
+emptyYvertex();
            
 markX();
     
@@ -557,7 +594,8 @@ storeRefx = [];
 xToy();
     
 }
-       
-    
+      
+   
 } // end MaxMatch 
-    
+
+ 
