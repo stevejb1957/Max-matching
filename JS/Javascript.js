@@ -93,19 +93,19 @@ function searchX(){
         
 }
 
- function emptyYvertex(){
+ function emptyYvertex(){ // Checks to see if there are any empty Y column vertices and then compares with drawn line number for Max matching
         
         out = [];
       
         for (x = 0;x < store.length;x++){
         
-        check.push(points[lines[store[x]-1][4]])
+        check.push(points[lines[store[x]-1][4]]) // y coordinate end of problem lines
         }
         
         eliminateDuplicate(check);
         
         
-        if ( out.length == conflict.length){
+        if ( out.length == conflict.length){ // checks number of lines ending on a Y column vertex and the number of drawn lines if equal Max Matching
              alert("Max matching found.Enter another problem");
              End();
             
@@ -190,7 +190,7 @@ vertex(x,y,"#000");
 }
 
 
-for(var i = 0;i < 25;i++){
+for(var i = 0;i < 25;i++){ // calculates next background edge
     
       col_1x = col_1x + 4;
       col_1y = col_1y + 4;
@@ -455,9 +455,9 @@ eliminateDuplicate(vertexX); // Duplicates removed from vertexX
           
 missingX = _.difference(current,out); // compares current with out  and finds missing X column vertex named missingX 
           
-missingMinX = _.min(missingX);
+missingMinX = _.min(missingX); // finds first number in array ie min
     
-missingMaxX = _.max(missingX); 
+missingMaxX = _.max(missingX); // finds second number in array ie max
           
 if ( missingMinX == null){
     
@@ -484,9 +484,9 @@ eliminateDuplicate(vertexY); // Duplicates removed from vertexY
               
 missingY = _.difference(current,out); // compares current with out  and finds missing Y column vertex named missingY 
                          
-missingMinY = _.min(missingY);
+missingMinY = _.min(missingY); // finds first number in array ie min
     
-missingMaxY = _.max(missingY);          
+missingMaxY = _.max(missingY); // finds second number in array ie max         
 
 vertex(770,missingMinY,"#fc1111"); 
     
