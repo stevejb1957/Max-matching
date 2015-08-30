@@ -60,11 +60,11 @@ window.onload = title;
              obj={};
  
              for (t=0;t<len;t++) {
-             obj[arr[t]]=0;
+                obj[arr[t]]=0;
              }
      
              for (t in obj) {
-             out.push(parseInt(t)); 
+                out.push(parseInt(t)); 
              }
  }
 
@@ -75,9 +75,9 @@ function searchX(){
             
              if(points[storeNumx[x]+2]== interceptY){
                  
-             storeNumEx.push(storeNumx[x])
+                storeNumEx.push(storeNumx[x])
              
-             storeNumx = _.difference(storeNumx,storeNumEx); // removes ref to y coordinates in storeNumx which are used in previous solutions( used in multi vertex               problem)
+                storeNumx = _.difference(storeNumx,storeNumEx); // removes ref to y coordinates in storeNumx which are used in previous solutions( used in multi vertex               problem)
                  
              }
             
@@ -229,8 +229,17 @@ l = document.getElementById("line");
 a = l.elements["selection"].value;
     
 a = a-1;
+ 
+if (store.indexOf(a+1) == -1)
+{
+    store.push(a + 1); // pushes edge selection into an array called store
+}
+else
+{
+    alert("number already selected")
+}
     
-store.push(a + 1); // pushes edge selection into an array called store
+
     
 probSolve(); // the edge is then sent to probSolve for drawing
     
